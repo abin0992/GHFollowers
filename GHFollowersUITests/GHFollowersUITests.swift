@@ -24,7 +24,7 @@ class GHFollowersUITests: XCTestCase {
 
     func testExample() throws {
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+        let app: XCUIApplication = XCUIApplication()
         app.launch()
 
         // Use recording to get started writing UI tests.
