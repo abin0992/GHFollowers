@@ -37,6 +37,8 @@ class GFSearchViewController: UIViewController {
         usernameTextField.layer.borderWidth = 2
         usernameTextField.layer.borderColor = UIColor.systemGray4.cgColor
         usernameTextField.delegate = self
+
+        self.title = "Search"
     }
 
     private func createDismissKeyboardTapGesture() {
