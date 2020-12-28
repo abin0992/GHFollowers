@@ -15,6 +15,7 @@
 		86A3DF0B25994ACD000B0218 /* GHFollowersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DF0A25994ACD000B0218 /* GHFollowersTests.swift */; };
 		86A3DF1625994ACD000B0218 /* GHFollowersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DF1525994ACD000B0218 /* GHFollowersUITests.swift */; };
 		86D4C29B25995BEA0025C133 /* GFSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D4C29A25995BEA0025C133 /* GFSearchViewController.swift */; };
+		86D4C2A025995D820025C133 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D4C29F25995D820025C133 /* GFButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		86A3DF1525994ACD000B0218 /* GHFollowersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersUITests.swift; sourceTree = "<group>"; };
 		86A3DF1725994ACD000B0218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86D4C29A25995BEA0025C133 /* GFSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSearchViewController.swift; sourceTree = "<group>"; };
+		86D4C29F25995D820025C133 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				86A3DEFE25994ACD000B0218 /* LaunchScreen.storyboard */,
 				86A3DF0125994ACD000B0218 /* Info.plist */,
 				86D4C29A25995BEA0025C133 /* GFSearchViewController.swift */,
+				86D4C29F25995D820025C133 /* GFButton.swift */,
 			);
 			path = GHFollowers;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				86A3DEF425994ACC000B0218 /* AppDelegate.swift in Sources */,
 				86D4C29B25995BEA0025C133 /* GFSearchViewController.swift in Sources */,
+				86D4C2A025995D820025C133 /* GFButton.swift in Sources */,
 				86A3DEF625994ACC000B0218 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

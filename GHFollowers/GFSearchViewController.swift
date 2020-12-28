@@ -9,12 +9,23 @@ import UIKit
 
 class GFSearchViewController: UIViewController {
 
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var getFollowersButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureUI()
     }
-    
+
+    private func configureUI() {
+        usernameTextField.layer.cornerRadius = 10
+        usernameTextField.layer.borderWidth = 2
+        usernameTextField.layer.borderColor = UIColor.systemGray4.cgColor
+    }
+
+    @IBAction func getFollowersButtonAction(_ sender: Any) {
+    }
 
     /*
     // MARK: - Navigation
