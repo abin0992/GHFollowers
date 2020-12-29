@@ -2,6 +2,7 @@ disabled_rules:
   - line_length
   - xctfail_message
   - no_grouping_extension
+  - private_outlet
 opt_in_rules:
   - array_init
   - attributes
