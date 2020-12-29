@@ -18,6 +18,7 @@ class GFSearchViewController: UIViewController {
         }
         return false
     }
+    let displayFollwersSegueIdentifier: String = "showFollowersSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,6 @@ class GFSearchViewController: UIViewController {
         usernameTextField.layer.borderWidth = 2
         usernameTextField.layer.borderColor = UIColor.systemGray4.cgColor
         usernameTextField.delegate = self
-
-        self.title = "Search"
     }
 
     private func createDismissKeyboardTapGesture() {
@@ -57,20 +56,19 @@ class GFSearchViewController: UIViewController {
         }
 
         usernameTextField.resignFirstResponder()
-
-//        let followerListVC = FollowerListVC(username: usernameTextField.text!)
-//        navigationController?.pushViewController(followerListVC, animated: true)
+        self.performSegue(withIdentifier: displayFollwersSegueIdentifier, sender: self)
     }
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == displayFollwersSegueIdentifier,
+           let followerList: GFFollowerListViewController = segue.destination as? GFFollowerListViewController,
+           let username: String = usernameTextField.text {
+            followerList.username = username
+        }
     }
-    */
-
 }
 
 extension GFSearchViewController: UITextFieldDelegate {

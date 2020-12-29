@@ -5,4 +5,9 @@
 //  Created by Abin Baby on 29/12/20.
 //
 
-import Foundation
+import UIKit
+extension UIViewController {
+    static var className: String {
+        String(describing: self)
+    }
+}

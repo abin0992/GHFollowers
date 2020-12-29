@@ -8,5 +8,15 @@
 import UIKit
 
 class GFFollowerCell: UICollectionViewCell {
-    
+
+    @IBOutlet weak var avatarImageView: GFAvatarImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+
+    static let reuseID: String = "FollowerCell"
+
+    func set(follower: Follower) {
+        avatarImageView.downloadImage(fromURL: follower.avatarUrl)
+        usernameLabel.text = follower.login
+    }
+
 }
