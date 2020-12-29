@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,18 +13,18 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="GFSearchViewController" customModule="GHFollowers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gh-logo" translatesAutoresizingMaskIntoConstraints="NO" id="gBp-PB-UHU">
-                                <rect key="frame" x="95" y="94" width="200" height="200"/>
+                                <rect key="frame" x="87.666666666666686" y="94" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="5Fa-PD-IM4"/>
                                     <constraint firstAttribute="height" constant="200" id="h6A-V5-WJ2"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a username" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3Wf-Tx-0XN">
-                                <rect key="frame" x="50" y="342" width="290" height="50"/>
+                                <rect key="frame" x="50" y="342" width="275" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="k4U-uf-G2t"/>
                                 </constraints>
@@ -32,7 +32,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hH-ac-zoY" customClass="GFButton" customModule="GHFollowers" customModuleProvider="target">
-                                <rect key="frame" x="50" y="710" width="290" height="50"/>
+                                <rect key="frame" x="50" y="678" width="275" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yqN-HU-Sn2"/>
