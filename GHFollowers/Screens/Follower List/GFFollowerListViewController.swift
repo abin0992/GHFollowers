@@ -145,7 +145,9 @@ extension GFFollowerListViewController: UICollectionViewDelegate {
         if let mainStoryboard: UIStoryboard = storyboard {
             let destinationViewController: GFUserInfoViewController = mainStoryboard.instantiateViewController(identifier: GFUserInfoViewController.className) as GFUserInfoViewController
             destinationViewController.username = follower.login
-            self.present(destinationViewController, animated: true)
+            let navigationController: UINavigationController = UINavigationController(rootViewController: destinationViewController)
+
+            self.present(navigationController, animated: true)
         }
     }
 }

@@ -16,12 +16,14 @@ class GFUserInfoViewController: UITableViewController {
     @IBOutlet weak var bioLabel: UILabel!
 
     var username: String!
+    var placeholderUser: User = User(login: "", avatarUrl: "", name: "", location: "", bio: "", publicRepos: 0, publicGists: 0, htmlUrl: "", following: 0, followers: 0, createdAt: Date())
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
+        self.configureUIElements(with: placeholderUser)
         getUserInfo()
     }
 
@@ -54,6 +56,7 @@ class GFUserInfoViewController: UITableViewController {
         tableView.endUpdates()
         //self.dateLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
     }
+
     @IBAction func dismissUserInfoViewController(_ sender: Any) {
         self.dismiss(animated: true)
     }
