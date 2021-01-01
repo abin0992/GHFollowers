@@ -10,7 +10,6 @@ import UIKit
 class GFNetworkManager {
 
     static let shared: GFNetworkManager = GFNetworkManager()
-    private let baseURL: String = "https://api.github.com"
     let cache: NSCache = NSCache<NSString, UIImage>()
 
     private init() {}
