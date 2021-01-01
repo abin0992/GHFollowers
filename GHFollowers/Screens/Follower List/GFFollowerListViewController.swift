@@ -10,7 +10,6 @@ import UIKit
 class GFFollowerListViewController: UIViewController {
 
     @IBOutlet weak var followersCollectionView: UICollectionView!
-    @IBOutlet weak var addToFavoritesBarButtonItem: UIBarButtonItem!
 
     var username: String!
     var followers: [Follower] = []
@@ -107,7 +106,6 @@ class GFFollowerListViewController: UIViewController {
         if self.followers.isEmpty {
             DispatchQueue.main.async {
                 self.followersCollectionView.backgroundView = self.emptyStateView
-                self.addToFavoritesBarButtonItem.isEnabled = false
             }
             return
         }
@@ -145,9 +143,22 @@ extension GFFollowerListViewController: UICollectionViewDelegate {
         if let mainStoryboard: UIStoryboard = storyboard {
             let destinationViewController: GFUserInfoViewController = mainStoryboard.instantiateViewController(identifier: GFUserInfoViewController.className) as GFUserInfoViewController
             destinationViewController.username = follower.login
+            destinationViewController.delegate = self
             let navigationController: UINavigationController = UINavigationController(rootViewController: destinationViewController)
 
             self.present(navigationController, animated: true)
         }
+    }
+}
+
+extension GFFollowerListViewController: UserInfoVCDelegate {
+    func didRequestFollowers(for username: String) {
+        self.username = username
+        title = username
+        page = 1
+        hasMoreFollowers = true
+        followers.removeAll()
+        followersCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        getFollowers(username: username, page: page)
     }
 }

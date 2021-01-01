@@ -63,7 +63,7 @@ class GFNetworkManager {
 
         let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { data, response, error in
 
-            if let _ = error {
+            if error != nil {
                 completed(.failure(.unableToComplete))
                 return
             }
