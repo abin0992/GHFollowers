@@ -1,5 +1,5 @@
 //
-//  Date+YearFormat.swift
+//  Date+MonthYearFormat.swift
 //  GHFollowers
 //
 //  Created by Abin Baby on 01/01/21.
