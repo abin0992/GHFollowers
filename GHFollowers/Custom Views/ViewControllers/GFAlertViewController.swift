@@ -42,7 +42,9 @@ class GFAlertViewController: UIViewController {
         configureMessageLabel()
     }
 
-    func configureContainerView() {
+    // MARK: - Private functions
+
+    private func configureContainerView() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -52,7 +54,7 @@ class GFAlertViewController: UIViewController {
         ])
     }
 
-    func configureTitleLabel() {
+    private func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -64,7 +66,7 @@ class GFAlertViewController: UIViewController {
         ])
     }
 
-    func configureActionButton() {
+    private func configureActionButton() {
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         actionButton.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +79,7 @@ class GFAlertViewController: UIViewController {
         ])
     }
 
-    func configureMessageLabel() {
+    private func configureMessageLabel() {
         messageLabel.text = message ?? "Unable to complete request"
         messageLabel.numberOfLines = 4
         messageLabel.translatesAutoresizingMaskIntoConstraints = false

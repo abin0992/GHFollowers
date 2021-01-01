@@ -13,7 +13,7 @@ struct GFEndpoint {
     var url: URL? {
         var components: URLComponents = URLComponents()
         components.scheme = "https"
-        components.host = "api.github.com"
+        components.host = Constants.baseUrl
         components.path = path
         components.queryItems = queryItems
 

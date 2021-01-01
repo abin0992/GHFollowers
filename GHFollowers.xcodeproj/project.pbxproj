@@ -26,8 +26,10 @@
 		86DC95BF259B81D30076B24F /* GFUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95BE259B81D30076B24F /* GFUserInfoViewController.swift */; };
 		86DC95C7259B84110076B24F /* UIViewController+LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95C6259B84110076B24F /* UIViewController+LoadingView.swift */; };
 		86DC95CF259B89D30076B24F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95CE259B89D30076B24F /* User.swift */; };
-		86DC95FF259F706C0076B24F /* Date+YearFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95FE259F706C0076B24F /* Date+YearFormat.swift */; };
+		86DC95FF259F706C0076B24F /* Date+MonthYearFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95FE259F706C0076B24F /* Date+MonthYearFormat.swift */; };
 		86DC9616259F8E9A0076B24F /* GFEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9615259F8E9A0076B24F /* GFEndPoints.swift */; };
+		86DC961E259FA1A70076B24F /* URLSession+DataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC961D259FA1A70076B24F /* URLSession+DataTask.swift */; };
+		86DC9623259FA4C20076B24F /* GFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9622259FA4C20076B24F /* GFService.swift */; };
 		86E24B7E25996B6300AAD4C2 /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E24B7D25996B6300AAD4C2 /* UIView+Subviews.swift */; };
 		86E6E4E8259A9EA900F1ADBA /* GFFollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6E4E7259A9EA900F1ADBA /* GFFollowerListViewController.swift */; };
 		86E6E4F0259AA7D300F1ADBA /* GFFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6E4EF259AA7D300F1ADBA /* GFFollowerCell.swift */; };
@@ -81,8 +83,10 @@
 		86DC95BE259B81D30076B24F /* GFUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFUserInfoViewController.swift; sourceTree = "<group>"; };
 		86DC95C6259B84110076B24F /* UIViewController+LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LoadingView.swift"; sourceTree = "<group>"; };
 		86DC95CE259B89D30076B24F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		86DC95FE259F706C0076B24F /* Date+YearFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+YearFormat.swift"; sourceTree = "<group>"; };
+		86DC95FE259F706C0076B24F /* Date+MonthYearFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+MonthYearFormat.swift"; sourceTree = "<group>"; };
 		86DC9615259F8E9A0076B24F /* GFEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFEndPoints.swift; sourceTree = "<group>"; };
+		86DC961D259FA1A70076B24F /* URLSession+DataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+DataTask.swift"; sourceTree = "<group>"; };
+		86DC9622259FA4C20076B24F /* GFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFService.swift; sourceTree = "<group>"; };
 		86E24B7D25996B6300AAD4C2 /* UIView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Subviews.swift"; sourceTree = "<group>"; };
 		86E6E4E7259A9EA900F1ADBA /* GFFollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerListViewController.swift; sourceTree = "<group>"; };
 		86E6E4EF259AA7D300F1ADBA /* GFFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerCell.swift; sourceTree = "<group>"; };
@@ -238,11 +242,12 @@
 		86D4C2A4259961A40025C133 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				86DC95FE259F706C0076B24F /* Date+YearFormat.swift */,
+				86DC95FE259F706C0076B24F /* Date+MonthYearFormat.swift */,
 				86E24B7D25996B6300AAD4C2 /* UIView+Subviews.swift */,
 				86D4C2A5259961DB0025C133 /* UIViewController+Alert.swift */,
 				86E6E510259AB50300F1ADBA /* UIViewController+ClassName.swift */,
 				86DC95C6259B84110076B24F /* UIViewController+LoadingView.swift */,
+				86DC961D259FA1A70076B24F /* URLSession+DataTask.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,8 +326,9 @@
 		86E6E502259AADB200F1ADBA /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				86E6E503259AADE000F1ADBA /* GFNetworkManager.swift */,
 				86DC9615259F8E9A0076B24F /* GFEndPoints.swift */,
+				86E6E503259AADE000F1ADBA /* GFNetworkManager.swift */,
+				86DC9622259FA4C20076B24F /* GFService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -482,9 +488,11 @@
 			files = (
 				86E6E511259AB50300F1ADBA /* UIViewController+ClassName.swift in Sources */,
 				86D4C2B72599628F0025C133 /* GFAlertContainerView.swift in Sources */,
+				86DC961E259FA1A70076B24F /* URLSession+DataTask.swift in Sources */,
 				86DC95A8259B40590076B24F /* GFAvatarImageView.swift in Sources */,
 				86D4C2A6259961DB0025C133 /* UIViewController+Alert.swift in Sources */,
 				86E6E4F0259AA7D300F1ADBA /* GFFollowerCell.swift in Sources */,
+				86DC9623259FA4C20076B24F /* GFService.swift in Sources */,
 				86DC9616259F8E9A0076B24F /* GFEndPoints.swift in Sources */,
 				86A3DEF425994ACC000B0218 /* AppDelegate.swift in Sources */,
 				86D4C29B25995BEA0025C133 /* GFSearchViewController.swift in Sources */,
@@ -499,7 +507,7 @@
 				86E6E4E8259A9EA900F1ADBA /* GFFollowerListViewController.swift in Sources */,
 				86D4C2A025995D820025C133 /* GFButton.swift in Sources */,
 				86D4C2AF2599624F0025C133 /* GFAlertViewController.swift in Sources */,
-				86DC95FF259F706C0076B24F /* Date+YearFormat.swift in Sources */,
+				86DC95FF259F706C0076B24F /* Date+MonthYearFormat.swift in Sources */,
 				86DC95B1259B41270076B24F /* Constants.swift in Sources */,
 				86E6E516259AB5A200F1ADBA /* GFEmptyStateViewController.swift in Sources */,
 				86A3DEF625994ACC000B0218 /* SceneDelegate.swift in Sources */,

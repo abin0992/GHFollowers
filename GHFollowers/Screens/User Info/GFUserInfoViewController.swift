@@ -25,6 +25,9 @@ class GFUserInfoViewController: UITableViewController {
     var isLoading: Bool = false
     var user: User!
     weak var delegate: UserInfoVCDelegate!
+    var networkService: GFService = GFService()
+
+    // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +36,12 @@ class GFUserInfoViewController: UITableViewController {
         getUserInfo()
     }
 
+    // MARK: - API call
+
     private func getUserInfo() {
         isLoading = true
         showLoadingView()
-        GFNetworkManager.shared.getUserInfo(for: username) { [weak self] result in
+        networkService.fetchUserInfo(for: username) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -56,6 +61,8 @@ class GFUserInfoViewController: UITableViewController {
         }
     }
 
+    // MARK: - Private functions
+
     private func configureUIElements(with user: User) {
         tableView.beginUpdates()
         avatarImageView.downloadImage(fromURL: user.avatarUrl)
@@ -71,6 +78,8 @@ class GFUserInfoViewController: UITableViewController {
         tableView.endUpdates()
     }
 
+    // MARK: - Button Actions
+
     @IBAction func dismissUserInfoViewController(_ sender: Any) {
         self.dismiss(animated: true)
     }
@@ -81,9 +90,7 @@ class GFUserInfoViewController: UITableViewController {
             return
         }
 
-        let safariVC: SFSafariViewController = SFSafariViewController(url: url)
-        safariVC.preferredControlTintColor = .systemGreen
-        present(safariVC, animated: true)
+        presentSafariVC(with: url)
     }
 
     @IBAction func follwersButtonAction(_ sender: Any) {
@@ -91,6 +98,8 @@ class GFUserInfoViewController: UITableViewController {
         self.dismiss(animated: true)
     }
 }
+
+// MARK: - Tableview row height
 
 extension GFUserInfoViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -106,6 +115,7 @@ extension GFUserInfoViewController {
     }
 }
 
+// MARK: - Custom Protocol
 protocol UserInfoVCDelegate: class {
     func didRequestFollowers(for username: String)
 }

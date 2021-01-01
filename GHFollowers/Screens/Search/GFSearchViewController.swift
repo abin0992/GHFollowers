@@ -20,11 +20,13 @@ class GFSearchViewController: UIViewController {
     }
     let displayFollwersSegueIdentifier: String = "showFollowersSegue"
 
+    // MARK: View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureUI()
-        createDismissKeyboardTapGesture()
+        setUpDismissKeyboardTapGesture()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +35,8 @@ class GFSearchViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
+    //MARK: Private functions
+
     private func configureUI() {
         usernameTextField.layer.cornerRadius = 10
         usernameTextField.layer.borderWidth = 2
@@ -40,16 +44,12 @@ class GFSearchViewController: UIViewController {
         usernameTextField.delegate = self
     }
 
-    private func createDismissKeyboardTapGesture() {
+    private func setUpDismissKeyboardTapGesture() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
 
-    @IBAction func getFollowersButtonAction(_ sender: Any) {
-        pushFollowerListVC()
-    }
-
-    func pushFollowerListVC() {
+    private func pushFollowerListVC() {
         guard isUsernameEntered else {
             presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😀.", buttonTitle: "Ok")
             return
@@ -59,9 +59,12 @@ class GFSearchViewController: UIViewController {
         self.performSegue(withIdentifier: displayFollwersSegueIdentifier, sender: self)
     }
 
+    @IBAction func getFollowersButtonAction(_ sender: Any) {
+        pushFollowerListVC()
+    }
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == displayFollwersSegueIdentifier,
            let followerList: GFFollowerListViewController = segue.destination as? GFFollowerListViewController,
@@ -70,6 +73,8 @@ class GFSearchViewController: UIViewController {
         }
     }
 }
+
+// MARK: - Text Field Delegate
 
 extension GFSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

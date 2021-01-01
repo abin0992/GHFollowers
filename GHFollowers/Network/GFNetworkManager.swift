@@ -9,100 +9,55 @@ import UIKit
 
 class GFNetworkManager {
 
-    static let shared: GFNetworkManager = GFNetworkManager()
+    static let sharedInstance: GFNetworkManager = GFNetworkManager()
     let cache: NSCache = NSCache<NSString, UIImage>()
+    var decoder: JSONDecoder {
+        let decoder: JSONDecoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
 
     private init() {}
 
-    func getFollowers(for username: String, page: Int, completed: @escaping (Result<[Follower], GFError>) -> Void) {
+    // MARK: - URLSession Data task
 
-        let queryItems: [URLQueryItem] = [
-            URLQueryItem(name: "per_page", value: "100"),
-            URLQueryItem(name: "page", value: "\(page)")
-        ]
+    func fetchData <T: Decodable>(from url: URL, completion: @escaping (Result<T, GFError>) -> Void) {
 
-        guard let url = GFEndpoint.followersList(for: username, queryItems: queryItems).url else {
-            completed(.failure(.invalidUsername))
-            return
-        }
+        let task: URLSessionTask = URLSession.shared.dataTask(with: url) { result in
+            switch result {
+            case .success(( _, let data)):
+                do {
+                    let result: T = try self.decoder.decode(T.self, from: data)
 
-        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { data, response, error in
+                    completion(.success(result))
+                } catch {
+                    if let error: GFError = error as? GFError {
+                        return completion(.failure(error))
+                    }
 
-            if error != nil {
-                completed(.failure(.unableToComplete))
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completed(.failure(.invalidResponse))
-                return
-            }
-
-            guard let data = data else {
-                completed(.failure(.invalidData))
-                return
-            }
-
-            do {
-                let decoder: JSONDecoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let followers: [Follower] = try decoder.decode([Follower].self, from: data)
-                completed(.success(followers))
-            } catch {
-                completed(.failure(.invalidData))
-            }
+                    completion(.failure(.invalidData))
+                }
+            case .failure(let exception):
+                completion(.failure(exception))
+             }
         }
 
         task.resume()
     }
 
-    func getUserInfo(for username: String, completed: @escaping (Result<User, GFError>) -> Void) {
-        guard let url = GFEndpoint.userInfo(for: username).url else {
-            completed(.failure(.invalidUsername))
-            return
-        }
+    // MARK: - Fetch image from URL or from local cache
 
-        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { data, response, error in
-
-            if error != nil {
-                completed(.failure(.unableToComplete))
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completed(.failure(.invalidResponse))
-                return
-            }
-
-            guard let data = data else {
-                completed(.failure(.invalidData))
-                return
-            }
-
-            do {
-                let decoder: JSONDecoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
-                let user: User = try decoder.decode(User.self, from: data)
-                completed(.success(user))
-            } catch {
-                completed(.failure(.invalidData))
-            }
-        }
-
-        task.resume()
-    }
-
-    func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
+    func downloadImage(from urlString: String, completetion: @escaping (UIImage?) -> Void) {
         let cacheKey: NSString = NSString(string: urlString)
 
         if let image: UIImage = cache.object(forKey: cacheKey) {
-            completed(image)
+            completetion(image)
             return
         }
 
         guard let url: URL = URL(string: urlString) else {
-            completed(nil)
+            completetion(nil)
             return
         }
 
@@ -113,12 +68,12 @@ class GFNetworkManager {
                 let response = response as? HTTPURLResponse, response.statusCode == 200,
                 let data = data,
                 let image = UIImage(data: data) else {
-                    completed(nil)
+                    completetion(nil)
                     return
                 }
 
             self.cache.setObject(image, forKey: cacheKey)
-            completed(image)
+            completetion(image)
         }
 
         task.resume()

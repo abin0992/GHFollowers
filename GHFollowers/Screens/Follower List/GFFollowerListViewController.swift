@@ -20,6 +20,7 @@ class GFFollowerListViewController: UIViewController {
     private lazy var dataSource: DataSource = makeDataSource()
     var emptyStateView: UIView?
     let displayUserInfoSegueIdentifier: String = "showUserInfoSegue"
+    var networkService: GFService = GFService()
 
     // MARK: - Value Types
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Follower>
@@ -27,13 +28,15 @@ class GFFollowerListViewController: UIViewController {
 
     enum Section { case main }
 
+    // MARK: - View life cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let mainStoryboard: UIStoryboard = storyboard {
             emptyStateView = mainStoryboard.instantiateViewController(withIdentifier: GFEmptyStateViewController.className).view
         }
         configureCollectionView()
-        getFollowers(username: username, page: page)
+        fetchFollowers(username: username, page: page)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -41,47 +44,13 @@ class GFFollowerListViewController: UIViewController {
         configureNavigationBar()
     }
 
-    private func configureNavigationBar() {
-        self.title = username
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
+    // MARK: - API call
 
-    private func configureCollectionView() {
-        followersCollectionView.delegate = self
-        followersCollectionView.backgroundColor = .systemBackground
-        followersCollectionView.collectionViewLayout = createThreeColumnFlowLayout()
-    }
-
-    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
-        let width: CGFloat = self.view.bounds.width
-        let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth: CGFloat = width - (padding * 2) - (minimumItemSpacing * 2)
-        let itemWidth: CGFloat = availableWidth / 3
-
-        let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
-
-        return flowLayout
-    }
-
-    func makeDataSource() -> DataSource {
-        let dataSource: DataSource = DataSource(collectionView: followersCollectionView) { collectionView, indexPath, follower ->
-          UICollectionViewCell? in
-        let cell: GFFollowerCell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCell.reuseID, for: indexPath) as? GFFollowerCell ?? GFFollowerCell()
-        cell.set(follower: follower)
-        return cell
-        }
-      return dataSource
-    }
-
-    private func getFollowers(username: String, page: Int) {
+    private func fetchFollowers(username: String, page: Int) {
         showLoadingView()
         isLoadingMoreFollowers = true
 
-        GFNetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
+        networkService.fetchFollowers(for: username, page: page) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -99,6 +68,44 @@ class GFFollowerListViewController: UIViewController {
         }
     }
 
+    // MARK: - Private functions
+
+    private func configureNavigationBar() {
+        self.title = username
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
+    private func configureCollectionView() {
+        followersCollectionView.delegate = self
+        followersCollectionView.backgroundColor = .systemBackground
+        followersCollectionView.collectionViewLayout = createThreeColumnFlowLayout()
+    }
+
+    private func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
+        let width: CGFloat = self.view.bounds.width
+        let padding: CGFloat = 12
+        let minimumItemSpacing: CGFloat = 10
+        let availableWidth: CGFloat = width - (padding * 2) - (minimumItemSpacing * 2)
+        let itemWidth: CGFloat = availableWidth / 3
+
+        let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
+
+        return flowLayout
+    }
+
+    private func makeDataSource() -> DataSource {
+        let dataSource: DataSource = DataSource(collectionView: followersCollectionView) { collectionView, indexPath, follower ->
+          UICollectionViewCell? in
+        let cell: GFFollowerCell = collectionView.dequeueReusableCell(withReuseIdentifier: GFFollowerCell.reuseID, for: indexPath) as? GFFollowerCell ?? GFFollowerCell()
+        cell.set(follower: follower)
+        return cell
+        }
+      return dataSource
+    }
+
     private func updateUI(with followers: [Follower]) {
         if followers.count < 100 { self.hasMoreFollowers = false }
         self.followers.append(contentsOf: followers)
@@ -113,16 +120,15 @@ class GFFollowerListViewController: UIViewController {
         self.updateData(on: self.followers)
     }
 
-    func updateData(on followers: [Follower]) {
+    private func updateData(on followers: [Follower]) {
         var snapshot: NSDiffableDataSourceSnapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
-
-    @IBAction func addUserToFavoriteButtonAction(_ sender: Any) {
-    }
 }
+
+// MARK: - Collection View Delegate
 
 extension GFFollowerListViewController: UICollectionViewDelegate {
 
@@ -132,7 +138,7 @@ extension GFFollowerListViewController: UICollectionViewDelegate {
                 return
             }
             page += 1
-            getFollowers(username: username, page: page)
+            fetchFollowers(username: username, page: page)
         }
     }
 
@@ -151,6 +157,8 @@ extension GFFollowerListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: User info screen delegate
+
 extension GFFollowerListViewController: UserInfoVCDelegate {
     func didRequestFollowers(for username: String) {
         self.username = username
@@ -159,6 +167,6 @@ extension GFFollowerListViewController: UserInfoVCDelegate {
         hasMoreFollowers = true
         followers.removeAll()
         followersCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        getFollowers(username: username, page: page)
+        fetchFollowers(username: username, page: page)
     }
 }
