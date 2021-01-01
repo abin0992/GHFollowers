@@ -10,15 +10,19 @@ import UIKit
 class GFNetworkManager {
 
     static let shared: GFNetworkManager = GFNetworkManager()
-    private let baseURL: String = "https://api.github.com/users/"
+    private let baseURL: String = "https://api.github.com"
     let cache: NSCache = NSCache<NSString, UIImage>()
 
     private init() {}
 
     func getFollowers(for username: String, page: Int, completed: @escaping (Result<[Follower], GFError>) -> Void) {
-        let endpoint: String = baseURL + "\(username)/followers?per_page=100&page=\(page)"
 
-        guard let url = URL(string: endpoint) else {
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "per_page", value: "100"),
+            URLQueryItem(name: "page", value: "\(page)")
+        ]
+
+        guard let url = GFEndpoint.followersList(for: username, queryItems: queryItems).url else {
             completed(.failure(.invalidUsername))
             return
         }
@@ -54,9 +58,7 @@ class GFNetworkManager {
     }
 
     func getUserInfo(for username: String, completed: @escaping (Result<User, GFError>) -> Void) {
-        let endpoint: String = baseURL + "\(username)"
-
-        guard let url = URL(string: endpoint) else {
+        guard let url = GFEndpoint.userInfo(for: username).url else {
             completed(.failure(.invalidUsername))
             return
         }
