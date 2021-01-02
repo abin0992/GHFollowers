@@ -41,24 +41,24 @@ class GFSearchVCTests: XCTestCase {
     // MARK: - Tests
 
     func test_OutletsShouldBeConnected() {
-            XCTAssertNotNil(sut.usernameTextField, "usernameTextField not found")
-            XCTAssertNotNil(sut.getFollowersButton, "Get followers button not found")
-        }
+        XCTAssertNotNil(sut.usernameTextField, "usernameTextField not found")
+        XCTAssertNotNil(sut.getFollowersButton, "Get followers button not found")
+    }
 
     func test_HasUsernameTextField() {
         let usernameTextFieldIsSubView: Bool = sut.usernameTextField?.isDescendant(of: sut.view) ?? false
-          XCTAssertTrue(usernameTextFieldIsSubView)
+        XCTAssertTrue(usernameTextFieldIsSubView)
     }
 
     func test_GetFollwersButtonHasAction() {
-      let getFollowersButton: UIButton = sut.getFollowersButton
+        let getFollowersButton: UIButton = sut.getFollowersButton
 
-      guard let actions = getFollowersButton.actions(forTarget: sut, forControlEvent: .touchUpInside) else {
-        XCTFail()
-        return
-      }
+        guard let actions = getFollowersButton.actions(forTarget: sut, forControlEvent: .touchUpInside) else {
+            XCTFail()
+            return
+        }
 
-      XCTAssertTrue(actions.contains("getFollowersButtonAction:"))
+        XCTAssertTrue(actions.contains("getFollowersButtonAction:"))
     }
 
     func test_GetFollwersButton_WhenTapped_FollwerListIsPushed() {

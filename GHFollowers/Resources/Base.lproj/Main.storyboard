@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hzv-iV-Qik">
-    <device id="retina4_7" orientation="portrait" appearance="dark"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -76,7 +76,7 @@
         <!--Follower List View Controller-->
         <scene sceneID="qSf-O7-jTa">
             <objects>
-                <viewController id="3EB-fZ-sdr" customClass="GFFollowerListViewController" customModule="GHFollowers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GFFollowerListViewController" id="3EB-fZ-sdr" customClass="GFFollowerListViewController" customModule="GHFollowers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Il-x3-4f5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

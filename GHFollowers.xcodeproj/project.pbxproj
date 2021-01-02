@@ -10,6 +10,9 @@
 		862213872599637400C5C4AE /* GFTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862213862599637400C5C4AE /* GFTitleLabel.swift */; };
 		8622138C2599641F00C5C4AE /* GFBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622138B2599641F00C5C4AE /* GFBodyLabel.swift */; };
 		8648260C259FEE9800702C41 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95B0259B41270076B24F /* Constants.swift */; };
+		86482611259FF13000702C41 /* GFFollowerListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86482610259FF13000702C41 /* GFFollowerListVCTests.swift */; };
+		86482617259FF23E00702C41 /* MockNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86482616259FF23E00702C41 /* MockNetworkService.swift */; };
+		8648261F259FF43500702C41 /* test_followerList.json in Resources */ = {isa = PBXBuildFile; fileRef = 8648261E259FF43500702C41 /* test_followerList.json */; };
 		86A3DEF425994ACC000B0218 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DEF325994ACC000B0218 /* AppDelegate.swift */; };
 		86A3DEF625994ACC000B0218 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DEF525994ACC000B0218 /* SceneDelegate.swift */; };
 		86A3DEFB25994ACC000B0218 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A3DEF925994ACC000B0218 /* Main.storyboard */; };
@@ -61,6 +64,9 @@
 /* Begin PBXFileReference section */
 		862213862599637400C5C4AE /* GFTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTitleLabel.swift; sourceTree = "<group>"; };
 		8622138B2599641F00C5C4AE /* GFBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFBodyLabel.swift; sourceTree = "<group>"; };
+		86482610259FF13000702C41 /* GFFollowerListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerListVCTests.swift; sourceTree = "<group>"; };
+		86482616259FF23E00702C41 /* MockNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkService.swift; sourceTree = "<group>"; };
+		8648261E259FF43500702C41 /* test_followerList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_followerList.json; sourceTree = "<group>"; };
 		86A3DEF025994ACC000B0218 /* GHFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A3DEF325994ACC000B0218 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86A3DEF525994ACC000B0218 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +156,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		86482615259FF21200702C41 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				86482616259FF23E00702C41 /* MockNetworkService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		868E8617259A92D100D79EA4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,8 +239,9 @@
 		86A3DF0925994ACD000B0218 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
+				86482615259FF21200702C41 /* Mocks */,
 				86DC9637259FBB9D0076B24F /* Supporting Files */,
-				86DC9630259FBB100076B24F /* ViewController Tests */,
+				86DC9630259FBB100076B24F /* View Controllers */,
 			);
 			path = GHFollowersTests;
 			sourceTree = "<group>";
@@ -314,17 +329,19 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		86DC9630259FBB100076B24F /* ViewController Tests */ = {
+		86DC9630259FBB100076B24F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				86DC963B259FBC040076B24F /* GFSearchVCTests.swift */,
+				86482610259FF13000702C41 /* GFFollowerListVCTests.swift */,
 			);
-			path = "ViewController Tests";
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		86DC9637259FBB9D0076B24F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8648261E259FF43500702C41 /* test_followerList.json */,
 				86A3DF0C25994ACD000B0218 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -466,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8648261F259FF43500702C41 /* test_followerList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +555,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86482617259FF23E00702C41 /* MockNetworkService.swift in Sources */,
 				86DC963C259FBC040076B24F /* GFSearchVCTests.swift in Sources */,
+				86482611259FF13000702C41 /* GFFollowerListVCTests.swift in Sources */,
 				8648260C259FEE9800702C41 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
