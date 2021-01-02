@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		862213872599637400C5C4AE /* GFTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862213862599637400C5C4AE /* GFTitleLabel.swift */; };
 		8622138C2599641F00C5C4AE /* GFBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8622138B2599641F00C5C4AE /* GFBodyLabel.swift */; };
+		8648260C259FEE9800702C41 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95B0259B41270076B24F /* Constants.swift */; };
 		86A3DEF425994ACC000B0218 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DEF325994ACC000B0218 /* AppDelegate.swift */; };
 		86A3DEF625994ACC000B0218 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DEF525994ACC000B0218 /* SceneDelegate.swift */; };
 		86A3DEFB25994ACC000B0218 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A3DEF925994ACC000B0218 /* Main.storyboard */; };
 		86A3DEFD25994ACD000B0218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86A3DEFC25994ACD000B0218 /* Assets.xcassets */; };
 		86A3DF0025994ACD000B0218 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86A3DEFE25994ACD000B0218 /* LaunchScreen.storyboard */; };
-		86A3DF0B25994ACD000B0218 /* GHFollowersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DF0A25994ACD000B0218 /* GHFollowersTests.swift */; };
 		86A3DF1625994ACD000B0218 /* GHFollowersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A3DF1525994ACD000B0218 /* GHFollowersUITests.swift */; };
 		86D4C29B25995BEA0025C133 /* GFSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D4C29A25995BEA0025C133 /* GFSearchViewController.swift */; };
 		86D4C2A025995D820025C133 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D4C29F25995D820025C133 /* GFButton.swift */; };
@@ -30,6 +30,7 @@
 		86DC9616259F8E9A0076B24F /* GFEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9615259F8E9A0076B24F /* GFEndPoints.swift */; };
 		86DC961E259FA1A70076B24F /* URLSession+DataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC961D259FA1A70076B24F /* URLSession+DataTask.swift */; };
 		86DC9623259FA4C20076B24F /* GFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC9622259FA4C20076B24F /* GFService.swift */; };
+		86DC963C259FBC040076B24F /* GFSearchVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC963B259FBC040076B24F /* GFSearchVCTests.swift */; };
 		86E24B7E25996B6300AAD4C2 /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E24B7D25996B6300AAD4C2 /* UIView+Subviews.swift */; };
 		86E6E4E8259A9EA900F1ADBA /* GFFollowerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6E4E7259A9EA900F1ADBA /* GFFollowerListViewController.swift */; };
 		86E6E4F0259AA7D300F1ADBA /* GFFollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E6E4EF259AA7D300F1ADBA /* GFFollowerCell.swift */; };
@@ -68,7 +69,6 @@
 		86A3DEFF25994ACD000B0218 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86A3DF0125994ACD000B0218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A3DF0625994ACD000B0218 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		86A3DF0A25994ACD000B0218 /* GHFollowersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersTests.swift; sourceTree = "<group>"; };
 		86A3DF0C25994ACD000B0218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86A3DF1125994ACD000B0218 /* GHFollowersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A3DF1525994ACD000B0218 /* GHFollowersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersUITests.swift; sourceTree = "<group>"; };
@@ -87,6 +87,7 @@
 		86DC9615259F8E9A0076B24F /* GFEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFEndPoints.swift; sourceTree = "<group>"; };
 		86DC961D259FA1A70076B24F /* URLSession+DataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+DataTask.swift"; sourceTree = "<group>"; };
 		86DC9622259FA4C20076B24F /* GFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFService.swift; sourceTree = "<group>"; };
+		86DC963B259FBC040076B24F /* GFSearchVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFSearchVCTests.swift; sourceTree = "<group>"; };
 		86E24B7D25996B6300AAD4C2 /* UIView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Subviews.swift"; sourceTree = "<group>"; };
 		86E6E4E7259A9EA900F1ADBA /* GFFollowerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerListViewController.swift; sourceTree = "<group>"; };
 		86E6E4EF259AA7D300F1ADBA /* GFFollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFFollowerCell.swift; sourceTree = "<group>"; };
@@ -224,8 +225,8 @@
 		86A3DF0925994ACD000B0218 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
-				86A3DF0A25994ACD000B0218 /* GHFollowersTests.swift */,
-				86A3DF0C25994ACD000B0218 /* Info.plist */,
+				86DC9637259FBB9D0076B24F /* Supporting Files */,
+				86DC9630259FBB100076B24F /* ViewController Tests */,
 			);
 			path = GHFollowersTests;
 			sourceTree = "<group>";
@@ -311,6 +312,22 @@
 				86E6E4EF259AA7D300F1ADBA /* GFFollowerCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		86DC9630259FBB100076B24F /* ViewController Tests */ = {
+			isa = PBXGroup;
+			children = (
+				86DC963B259FBC040076B24F /* GFSearchVCTests.swift */,
+			);
+			path = "ViewController Tests";
+			sourceTree = "<group>";
+		};
+		86DC9637259FBB9D0076B24F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				86A3DF0C25994ACD000B0218 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		86E6E4F4259AAB2000F1ADBA /* Model */ = {
@@ -405,6 +422,7 @@
 					};
 					86A3DF0525994ACD000B0218 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1220;
 						TestTargetID = 86A3DEEF25994ACC000B0218;
 					};
 					86A3DF1025994ACD000B0218 = {
@@ -519,7 +537,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86A3DF0B25994ACD000B0218 /* GHFollowersTests.swift in Sources */,
+				86DC963C259FBC040076B24F /* GFSearchVCTests.swift in Sources */,
+				8648260C259FEE9800702C41 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,10 +744,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BQGY9G2Z4;
-				INFOPLIST_FILE = GHFollowersTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				INFOPLIST_FILE = "GHFollowersTests/Supporting FIles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -736,6 +756,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.demo.test.GHFollowersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GHFollowers.app/GHFollowers";
@@ -747,10 +768,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BQGY9G2Z4;
-				INFOPLIST_FILE = GHFollowersTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				INFOPLIST_FILE = "GHFollowersTests/Supporting FIles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

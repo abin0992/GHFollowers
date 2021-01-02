@@ -1,14 +1,13 @@
 //
-//  GHFollowersTests.swift
+//  GFSearchVCTests.swift
 //  GHFollowersTests
 //
-//  Created by Abin Baby on 28/12/20.
+//  Created by Abin Baby on 01/01/21.
 //
 
-@testable import GHFollowers
 import XCTest
 
-class GHFollowersTests: XCTestCase {
+class GFSearchVCTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -9,8 +9,8 @@ import UIKit
 
 class GFSearchViewController: UIViewController {
 
-    @IBOutlet private weak var usernameTextField: UITextField!
-    @IBOutlet private weak var getFollowersButton: UIButton!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var getFollowersButton: UIButton!
 
     var isUsernameEntered: Bool {
         if let username: String = usernameTextField.text {
@@ -35,7 +35,7 @@ class GFSearchViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    //MARK: Private functions
+    // MARK: Private functions
 
     private func configureUI() {
         usernameTextField.layer.cornerRadius = 10
@@ -51,7 +51,7 @@ class GFSearchViewController: UIViewController {
 
     private func pushFollowerListVC() {
         guard isUsernameEntered else {
-            presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😀.", buttonTitle: "Ok")
+            presentGFAlertOnMainThread(title: Alert.emptyUsernameTitle, message: Alert.emptyUsernameMessage, buttonTitle: Alert.okButtonLabel)
             return
         }
 
