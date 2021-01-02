@@ -10,7 +10,8 @@ import XCTest
 
 class MockNetworkService: GFService {
 
-    let testFollowerListJSONFile: String = "test_followerList"
+    private let testFollowerListJSONFile: String = "test_followerList"
+    private let testUserInfoJSONFile: String = "test_userInfo"
 
     override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
         guard let jsonURL = Bundle(for: type(of: self)).url(forResource: testFollowerListJSONFile, withExtension: "json") else {
@@ -18,20 +19,29 @@ class MockNetworkService: GFService {
             return
         }
 
-        do {
-            let data: Data = try Data(contentsOf: jsonURL)
+        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<[Follower], GFError>) in
+            switch result {
+            case .success (let dataArray):
+                completion(.success(dataArray))
+            case .failure(let exception):
+                completion(.failure(exception))
+            }
+        }
+    }
 
-            let decoder: JSONDecoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            decoder.dateDecodingStrategy = .iso8601
+    override func fetchUserInfo(for username: String, completion: @escaping (Result<User, GFError>) -> Void) {
+        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: testUserInfoJSONFile, withExtension: "json") else {
+            XCTFail("Loading file '\(testFollowerListJSONFile).json' failed!")
+            return
+        }
 
-            let result: [Follower] = try decoder.decode([Follower].self, from: data)
-
-            completion(.success(result))
-
-        } catch {
-            XCTFail("Reading contents of file '\(testFollowerListJSONFile).json' failed! (Exception: \(error))")
-            completion(.failure(.invalidData))
+        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<User, GFError>) in
+            switch result {
+            case .success (let user):
+                completion(.success(user))
+            case .failure(let exception):
+                completion(.failure(exception))
+            }
         }
     }
 }

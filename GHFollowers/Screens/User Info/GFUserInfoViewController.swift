@@ -20,27 +20,32 @@ class GFUserInfoViewController: UITableViewController {
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var getFollowersButton: GFButton!
+    @IBOutlet weak var githubProfileButton: GFButton!
 
     var username: String!
     var isLoading: Bool = false
     var user: User!
     weak var delegate: UserInfoVCDelegate!
     var networkService: GFService = GFService()
+    var loadingView: UIView = UIView()
 
     // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.rowHeight = UITableView.automaticDimension
+        configureTableView()
         getUserInfo()
     }
 
     // MARK: - API call
 
-    private func getUserInfo() {
+    typealias OptionalCompletionClosure = (() -> Void)?
+
+    func getUserInfo(completion: OptionalCompletionClosure = nil) {
         isLoading = true
-        showLoadingView()
+        tableView.backgroundView = loadingView
         networkService.fetchUserInfo(for: username) { [weak self] result in
             guard let self = self else {
                 return
@@ -56,26 +61,37 @@ class GFUserInfoViewController: UITableViewController {
                 }
 
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.description, buttonTitle: "Ok")
+                self.presentGFAlertOnMainThread(title: Alert.unknownErrorTitle, message: error.description, buttonTitle: Alert.okButtonLabel)
             }
         }
     }
 
     // MARK: - Private functions
 
-    private func configureUIElements(with user: User) {
+    private func configureTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+        loadingView = self.loadingView()
+    }
+
+    func configureUIElements(with user: User) {
         tableView.beginUpdates()
         avatarImageView.downloadImage(fromURL: user.avatarUrl)
         usernameLabel.text = user.login
         nameLabel.text = user.name ?? ""
         locationLabel.text = user.location ?? "Global citizen 🌏"
-        bioLabel.text = user.bio ?? "No  bio available"
+        bioLabel.text = user.bio ?? "No bio available"
         repoCountLabel.text = String(user.publicRepos)
         gistCountLabel.text = String(user.publicGists)
         followersCountLabel.text = String(user.followers)
         followingCountLabel.text = String(user.following)
         yearLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
         tableView.endUpdates()
+    }
+
+    private func dismissLoadingView() {
+        DispatchQueue.main.async {
+            self.tableView.backgroundView = nil
+        }
     }
 
     // MARK: - Button Actions
@@ -86,7 +102,7 @@ class GFUserInfoViewController: UITableViewController {
 
     @IBAction func profileButtonAction(_ sender: Any) {
         guard let url = URL(string: user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid.", buttonTitle: "Ok")
+            presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel)
             return
         }
 

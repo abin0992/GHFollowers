@@ -18,7 +18,7 @@ class GFNetworkManager {
         return decoder
     }
 
-    private init() {}
+    init() {}
 
     // MARK: - URLSession Data task
 

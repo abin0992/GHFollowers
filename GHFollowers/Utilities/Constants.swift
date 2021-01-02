@@ -17,4 +17,7 @@ struct Alert {
     static let okButtonLabel: String = "Ok"
 
     static let errorTitle: String = "Bad Stuff Happend"
+    static let unknownErrorTitle: String = "Something went wrong"
+    static let invalidUrlTitle: String = "Invalid URL"
+    static let invalidUrlMessage: String = "The url attached to this user is invalid."
 }

@@ -12,7 +12,7 @@ class GFFollowerListVCTests: XCTestCase {
 
     // MARK: - Subject under test
 
-    var sut: GFFollowerListViewController!
+    var systemUnderTest: GFFollowerListViewController!
     let mockNetworkService: MockNetworkService = MockNetworkService()
     let testUsername: String = "testUsername"
 
@@ -22,18 +22,18 @@ class GFFollowerListVCTests: XCTestCase {
         super.setUp()
 
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        sut = storyboard
+        systemUnderTest = storyboard
           .instantiateViewController(
             withIdentifier: GFFollowerListViewController.className) as? GFFollowerListViewController
 
-        sut.networkService = mockNetworkService
-        sut.username = testUsername
+        systemUnderTest.networkService = mockNetworkService
+        systemUnderTest.username = testUsername
 
-        sut.loadViewIfNeeded()
+        systemUnderTest.loadViewIfNeeded()
     }
 
     override func tearDownWithError() throws {
-        sut = nil
+        systemUnderTest = nil
 
         super.tearDown()
     }
@@ -41,73 +41,73 @@ class GFFollowerListVCTests: XCTestCase {
     // MARK: - Tests
 
     func test_Controller_HasCollectionView() {
-        XCTAssertNotNil(sut.followersCollectionView, "GFFollowerListViewController should have a collection view")
+        XCTAssertNotNil(systemUnderTest.followersCollectionView, "GFFollowerListViewController should have a collection view")
     }
 
     func test_CollectionView_HasLoadingView() {
-        let loadingView: UIView = sut.loadingView
+        let loadingView: UIView = systemUnderTest.loadingView
         XCTAssertNotNil(loadingView)
     }
 
     func test_IsLoadingViewVisible() {
-        XCTAssertEqual(sut.followersCollectionView.backgroundView, sut.loadingView)
+        XCTAssertEqual(systemUnderTest.followersCollectionView.backgroundView, systemUnderTest.loadingView)
     }
 
     func test_Controller_ShouldSetCollectionViewDelegate() {
-        XCTAssertNotNil(sut.followersCollectionView.delegate)
+        XCTAssertNotNil(systemUnderTest.followersCollectionView.delegate)
     }
 
     func test_Controller_ConformsToCollectionViewDelegate() {
-        XCTAssertTrue(sut.responds(to: (#selector(sut.collectionView(_:willDisplay:forItemAt:)))))
-        XCTAssertTrue(sut.responds(to: (#selector(sut.collectionView(_:didSelectItemAt:)))))
+        XCTAssertTrue(systemUnderTest.responds(to: (#selector(systemUnderTest.collectionView(_:willDisplay:forItemAt:)))))
+        XCTAssertTrue(systemUnderTest.responds(to: (#selector(systemUnderTest.collectionView(_:didSelectItemAt:)))))
     }
 
     func test_Controller_HasDataSourceForCollectionView() {
-        XCTAssertNotNil(sut.dataSource)
+        XCTAssertNotNil(systemUnderTest.dataSource)
     }
 
     func test_Controller_ConformsToCollectionViewDelegateFlowLayout () {
-        XCTAssertNotNil(sut.followersCollectionView.collectionViewLayout)
+        XCTAssertNotNil(systemUnderTest.followersCollectionView.collectionViewLayout)
     }
 
     func test_NumberOfItemsInSection() {
-        sut.followers.removeAll()
-        sut.loadViewIfNeeded()
+        systemUnderTest.followers.removeAll()
+        systemUnderTest.loadViewIfNeeded()
 
-        let followersCount: Int = sut.followers.count
+        let followersCount: Int = systemUnderTest.followers.count
 
-        XCTAssertEqual(1, sut.followersCollectionView.numberOfSections)
-        XCTAssertEqual(followersCount, sut.followersCollectionView.numberOfItems(inSection: 0))
+        XCTAssertEqual(1, systemUnderTest.followersCollectionView.numberOfSections)
+        XCTAssertEqual(followersCount, systemUnderTest.followersCollectionView.numberOfItems(inSection: 0))
     }
 
     func test_Controller_createsCellsWith_ReuseIdentifier() {
-        sut.followers.removeAll()
-        sut.loadViewIfNeeded()
+        systemUnderTest.followers.removeAll()
+        systemUnderTest.loadViewIfNeeded()
 
         let indexPath: IndexPath = IndexPath(item: 0, section: 0)
 
-        sut.fetchFollowers(username: testUsername, page: 1) {
-            guard let cell: GFFollowerCell = self.sut.followersCollectionView.dataSource?.collectionView(self.sut.followersCollectionView, cellForItemAt: indexPath) as? GFFollowerCell else {
+        systemUnderTest.fetchFollowers(username: testUsername, page: 1) {
+            guard let cell: GFFollowerCell = self.systemUnderTest.followersCollectionView.dataSource?.collectionView(self.systemUnderTest.followersCollectionView, cellForItemAt: indexPath) as? GFFollowerCell else {
                 XCTFail("Returning collection view cell failed")
                 return
             }
 
-            let follower: Follower = self.sut.followers[indexPath.section]
+            let follower: Follower = self.systemUnderTest.followers[indexPath.section]
             XCTAssertEqual(cell.usernameLabel.text, follower.login)
 
-            let expectedReuseIdentifier: String = self.sut.reuseIdentifier
+            let expectedReuseIdentifier: String = self.systemUnderTest.reuseIdentifier
             XCTAssertTrue(cell.reuseIdentifier == expectedReuseIdentifier)
         }
     }
 
     func test_noFollowersStateIsVisible() {
-        sut.networkService = MockEmptyFollwersService()
+        systemUnderTest.networkService = MockEmptyFollwersService()
 
-        sut.loadViewIfNeeded()
-        XCTAssertNotNil(sut.emptyStateView)
+        systemUnderTest.loadViewIfNeeded()
+        XCTAssertNotNil(systemUnderTest.emptyStateView)
 
-        sut.fetchFollowers(username: testUsername, page: 1) {
-            XCTAssertEqual(self.sut.followersCollectionView.backgroundView, self.sut.emptyStateView)
+        systemUnderTest.fetchFollowers(username: testUsername, page: 1) {
+            XCTAssertEqual(self.systemUnderTest.followersCollectionView.backgroundView, self.systemUnderTest.emptyStateView)
         }
     }
 }

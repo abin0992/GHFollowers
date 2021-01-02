@@ -584,7 +584,9 @@
                         <outlet property="bioLabel" destination="j7B-ON-6qK" id="AyY-BT-Hy7"/>
                         <outlet property="followersCountLabel" destination="q6c-yy-GzD" id="tab-Xg-0My"/>
                         <outlet property="followingCountLabel" destination="GDG-7x-ECA" id="3hm-Uj-uHU"/>
+                        <outlet property="getFollowersButton" destination="wo9-6v-uvV" id="rqO-0Q-zxj"/>
                         <outlet property="gistCountLabel" destination="WbS-QM-7eK" id="YRi-fP-fFD"/>
+                        <outlet property="githubProfileButton" destination="jSE-3j-n2c" id="1Lb-Kc-4AR"/>
                         <outlet property="locationLabel" destination="fAR-ML-P40" id="n0d-IE-c75"/>
                         <outlet property="nameLabel" destination="X9V-rZ-bdh" id="193-Nl-rHB"/>
                         <outlet property="repoCountLabel" destination="6LO-VV-dle" id="Mj1-dI-zFZ"/>
