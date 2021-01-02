@@ -25,8 +25,6 @@ class GFFollowerListVCTests: XCTestCase {
         sut = storyboard
           .instantiateViewController(
             withIdentifier: GFFollowerListViewController.className) as? GFFollowerListViewController
-        let navigationController: UINavigationController = UINavigationController(rootViewController: sut)
-        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = navigationController
 
         sut.networkService = mockNetworkService
         sut.username = testUsername
@@ -88,17 +86,28 @@ class GFFollowerListVCTests: XCTestCase {
 
         let indexPath: IndexPath = IndexPath(item: 0, section: 0)
 
-        sut.fetchFollowers(username: testUsername, page: 1) { [unowned self] in
-            guard let cell: GFFollowerCell = self.sut.followersCollectionView.dataSource?.collectionView(sut.followersCollectionView, cellForItemAt: indexPath) as? GFFollowerCell else {
-                XCTFail("returning a tableView's cell failed")
+        sut.fetchFollowers(username: testUsername, page: 1) {
+            guard let cell: GFFollowerCell = self.sut.followersCollectionView.dataSource?.collectionView(self.sut.followersCollectionView, cellForItemAt: indexPath) as? GFFollowerCell else {
+                XCTFail("Returning collection view cell failed")
                 return
             }
 
             let follower: Follower = self.sut.followers[indexPath.section]
             XCTAssertEqual(cell.usernameLabel.text, follower.login)
 
-            let expectedReuseIdentifier: String = sut.reuseIdentifier
+            let expectedReuseIdentifier: String = self.sut.reuseIdentifier
             XCTAssertTrue(cell.reuseIdentifier == expectedReuseIdentifier)
+        }
+    }
+
+    func test_noFollowersStateIsVisible() {
+        sut.networkService = MockEmptyFollwersService()
+
+        sut.loadViewIfNeeded()
+        XCTAssertNotNil(sut.emptyStateView)
+
+        sut.fetchFollowers(username: testUsername, page: 1) {
+            XCTAssertEqual(self.sut.followersCollectionView.backgroundView, self.sut.emptyStateView)
         }
     }
 }
