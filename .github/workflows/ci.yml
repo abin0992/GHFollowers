@@ -23,10 +23,6 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: xcodebuild -project 'GHFollowers.xcodeproj' -scheme 'GHFollowers' -destination 'generic/platform=iOS' -configuration Release build CODE_SIGNING_ALLOWED=NO | xcpretty
     
-    - name: Run unit tests
+    - name: Run tests
       if: steps.cache.outputs.cache-hit != 'true'
       run: xcodebuild -project 'GHFollowers.xcodeproj' -scheme 'GHFollowers' -destination 'platform=iOS Simulator,name=iPhone 12 Pro' test | xcpretty
-
-    - name: Run UI tests
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: xcodebuild -project 'GHFollowers.xcodeproj' -scheme 'GHFollowersUITests' -destination 'platform=iOS Simulator,name=iPhone 12 Pro' test | xcpretty
