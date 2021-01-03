@@ -41,11 +41,11 @@ class GFUserListVCTests: XCTestCase {
     // MARK: - Tests
 
     func test_Controller_HasCollectionView() {
-        XCTAssertNotNil(systemUnderTest.followersCollectionView, "GFFollowerListViewController should have a collection view")
+        XCTAssertNotNil(systemUnderTest.usersCollectionView, "GFFollowerListViewController should have a collection view")
     }
 
     func test_Controller_ShouldSetCollectionViewDelegate() {
-        XCTAssertNotNil(systemUnderTest.followersCollectionView.delegate)
+        XCTAssertNotNil(systemUnderTest.usersCollectionView.delegate)
     }
 
     func test_Controller_ConformsToCollectionViewDelegate() {
@@ -58,32 +58,32 @@ class GFUserListVCTests: XCTestCase {
     }
 
     func test_Controller_ConformsToCollectionViewDelegateFlowLayout () {
-        XCTAssertNotNil(systemUnderTest.followersCollectionView.collectionViewLayout)
+        XCTAssertNotNil(systemUnderTest.usersCollectionView.collectionViewLayout)
     }
 
     func test_NumberOfItemsInSection() {
-        systemUnderTest.followers.removeAll()
+        systemUnderTest.users.removeAll()
         systemUnderTest.loadViewIfNeeded()
 
-        let followersCount: Int = systemUnderTest.followers.count
+        let followersCount: Int = systemUnderTest.users.count
 
-        XCTAssertEqual(1, systemUnderTest.followersCollectionView.numberOfSections)
-        XCTAssertEqual(followersCount, systemUnderTest.followersCollectionView.numberOfItems(inSection: 0))
+        XCTAssertEqual(1, systemUnderTest.usersCollectionView.numberOfSections)
+        XCTAssertEqual(followersCount, systemUnderTest.usersCollectionView.numberOfItems(inSection: 0))
     }
 
     func test_Controller_createsCellsWith_ReuseIdentifier() {
-        systemUnderTest.followers.removeAll()
+        systemUnderTest.users.removeAll()
         systemUnderTest.loadViewIfNeeded()
 
         let indexPath: IndexPath = IndexPath(item: 0, section: 0)
 
-        systemUnderTest.fetchFollowers(username: testUsername, page: 1) {
-            guard let cell: GFFollowerCell = self.systemUnderTest.followersCollectionView.dataSource?.collectionView(self.systemUnderTest.followersCollectionView, cellForItemAt: indexPath) as? GFFollowerCell else {
+        systemUnderTest.fetchUsers(username: testUsername, page: 1) {
+            guard let cell: GFUserCell = self.systemUnderTest.usersCollectionView.dataSource?.collectionView(self.systemUnderTest.usersCollectionView, cellForItemAt: indexPath) as? GFUserCell else {
                 XCTFail("Returning collection view cell failed")
                 return
             }
 
-            let follower: User = self.systemUnderTest.followers[indexPath.section]
+            let follower: User = self.systemUnderTest.users[indexPath.section]
             XCTAssertEqual(cell.usernameLabel.text, follower.login)
 
             let expectedReuseIdentifier: String = self.systemUnderTest.reuseIdentifier
@@ -97,8 +97,8 @@ class GFUserListVCTests: XCTestCase {
         systemUnderTest.loadViewIfNeeded()
         XCTAssertNotNil(systemUnderTest.emptyStateView)
 
-        systemUnderTest.fetchFollowers(username: testUsername, page: 1) {
-            XCTAssertEqual(self.systemUnderTest.followersCollectionView.backgroundView, self.systemUnderTest.emptyStateView)
+        systemUnderTest.fetchUsers(username: testUsername, page: 1) {
+            XCTAssertEqual(self.systemUnderTest.usersCollectionView.backgroundView, self.systemUnderTest.emptyStateView)
         }
     }
 }
