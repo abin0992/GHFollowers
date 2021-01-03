@@ -159,7 +159,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This user doesn't have any followers. Go follow them 😀." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyP-Zw-b2U" customClass="GFTitleLabel" customModule="GHFollowers" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We could not find any users with this username 🙁" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyP-Zw-b2U" customClass="GFTitleLabel" customModule="GHFollowers" customModuleProvider="target">
                                 <rect key="frame" x="43.5" y="20" width="288" height="209"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="OJY-d3-ZQX"/>
