@@ -10,7 +10,7 @@ import UIKit
 class GFSearchViewController: UIViewController {
 
     @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var getFollowersButton: UIButton!
+    @IBOutlet weak var searchButton: GFButton!
 
     var isUsernameEntered: Bool {
         if let username: String = usernameTextField.text {
@@ -18,7 +18,7 @@ class GFSearchViewController: UIViewController {
         }
         return false
     }
-    let displayFollwersSegueIdentifier: String = "showFollowersSegue"
+    let displayUserListSegueIdentifier: String = "showUsersSegue"
 
     // MARK: View lifecycle
 
@@ -40,7 +40,7 @@ class GFSearchViewController: UIViewController {
     private func configureUI() {
         view.accessibilityIdentifier = AccessibilityIdentifier.searchView.rawValue
         usernameTextField.accessibilityIdentifier = AccessibilityIdentifier.usernameTextField.rawValue
-        getFollowersButton.accessibilityIdentifier = AccessibilityIdentifier.searchViewGetFollowersButton.rawValue
+        searchButton.accessibilityIdentifier = AccessibilityIdentifier.searchButton.rawValue
 
         usernameTextField.layer.cornerRadius = 10
         usernameTextField.layer.borderWidth = 2
@@ -53,27 +53,27 @@ class GFSearchViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    private func pushFollowerListVC() {
+    private func pushUserListVC() {
         guard isUsernameEntered else {
             presentGFAlertOnMainThread(title: Alert.emptyUsernameTitle, message: Alert.emptyUsernameMessage, buttonTitle: Alert.okButtonLabel)
             return
         }
 
         usernameTextField.resignFirstResponder()
-        self.performSegue(withIdentifier: displayFollwersSegueIdentifier, sender: self)
+        self.performSegue(withIdentifier: displayUserListSegueIdentifier, sender: self)
     }
 
-    @IBAction func getFollowersButtonAction(_ sender: Any) {
-        pushFollowerListVC()
+    @IBAction func searchButtonAction(_ sender: Any) {
+        pushUserListVC()
     }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == displayFollwersSegueIdentifier,
-           let followerList: GFFollowerListViewController = segue.destination as? GFFollowerListViewController,
+        if segue.identifier == displayUserListSegueIdentifier,
+           let userList: GFUserListViewController = segue.destination as? GFUserListViewController,
            let username: String = usernameTextField.text {
-            followerList.username = username
+            userList.username = username
         }
     }
 }
@@ -82,7 +82,7 @@ class GFSearchViewController: UIViewController {
 
 extension GFSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pushFollowerListVC()
+        pushUserListVC()
         return true
     }
 }

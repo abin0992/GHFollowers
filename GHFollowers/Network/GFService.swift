@@ -9,16 +9,16 @@ import Foundation
 
 class GFService {
 
-    // MARK: Follwer list API
+    // MARK: User list API
 
-    func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+    func fetchUsers(for searchKey: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         let queryItems: [URLQueryItem] = [
-            URLQueryItem(name: "q", value: "\(username)"),
+            URLQueryItem(name: "q", value: "\(searchKey)"),
             URLQueryItem(name: "per_page", value: "100"),
             URLQueryItem(name: "page", value: "\(page)")
         ]
 
-        guard let url = GFEndpoint.followersList(queryItems: queryItems).url else {
+        guard let url = GFEndpoint.users(queryItems: queryItems).url else {
             completion(.failure(.invalidUsername))
             return
         }

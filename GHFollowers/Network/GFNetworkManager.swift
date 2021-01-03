@@ -46,7 +46,7 @@ class GFNetworkManager {
         task.resume()
     }
 
-    // MARK: - Fetch image from URL or from local cache
+    // MARK: - Fetch image from URL or from cache
 
     func downloadImage(from urlString: String, completetion: @escaping (UIImage?) -> Void) {
         let cacheKey: NSString = NSString(string: urlString)

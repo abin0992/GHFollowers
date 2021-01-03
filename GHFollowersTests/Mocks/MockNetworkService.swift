@@ -13,7 +13,7 @@ class MockNetworkService: GFService {
     static let testUserListJSONFile: String = "test_userList"
     static let testUserInfoJSONFile: String = "test_userInfo"
 
-    override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+    override func fetchUsers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testUserListJSONFile, withExtension: "json") else {
             XCTFail("Loading file '\(MockNetworkService.testUserListJSONFile).json' failed!")
             return

@@ -8,11 +8,11 @@
 @testable import GHFollowers
 import XCTest
 
-class GFFollowerListVCTests: XCTestCase {
+class GFUserListVCTests: XCTestCase {
 
     // MARK: - Subject under test
 
-    var systemUnderTest: GFFollowerListViewController!
+    var systemUnderTest: GFUserListViewController!
     let mockNetworkService: MockNetworkService = MockNetworkService()
     let testUsername: String = "testUsername"
 
@@ -24,7 +24,7 @@ class GFFollowerListVCTests: XCTestCase {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         systemUnderTest = storyboard
           .instantiateViewController(
-            withIdentifier: GFFollowerListViewController.className) as? GFFollowerListViewController
+            withIdentifier: GFUserListViewController.className) as? GFUserListViewController
 
         systemUnderTest.networkService = mockNetworkService
         systemUnderTest.username = testUsername

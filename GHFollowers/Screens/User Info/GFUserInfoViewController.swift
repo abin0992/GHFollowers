@@ -106,7 +106,7 @@ class GFUserInfoViewController: UITableViewController {
     }
 
     @IBAction func follwersButtonAction(_ sender: Any) {
-        delegate.didRequestFollowers(for: user.login)
+        delegate.didRequestUsers(for: user.login)
         self.dismiss(animated: true)
     }
 }
@@ -129,5 +129,5 @@ extension GFUserInfoViewController {
 
 // MARK: - Custom Protocol
 protocol UserInfoVCDelegate: class {
-    func didRequestFollowers(for username: String)
+    func didRequestUsers(for username: String)
 }

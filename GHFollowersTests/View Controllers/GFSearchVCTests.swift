@@ -42,7 +42,7 @@ class GFSearchVCTests: XCTestCase {
 
     func test_OutletsShouldBeConnected() {
         XCTAssertNotNil(systemUnderTest.usernameTextField, "usernameTextField not found")
-        XCTAssertNotNil(systemUnderTest.getFollowersButton, "Get followers button not found")
+        XCTAssertNotNil(systemUnderTest.searchButton, "Get followers button not found")
     }
 
     func test_HasUsernameTextField() {
@@ -51,22 +51,22 @@ class GFSearchVCTests: XCTestCase {
     }
 
     func test_GetFollwersButtonHasAction() {
-        let getFollowersButton: UIButton = systemUnderTest.getFollowersButton
+        let getFollowersButton: UIButton = systemUnderTest.searchButton
 
         guard let actions = getFollowersButton.actions(forTarget: systemUnderTest, forControlEvent: .touchUpInside) else {
             XCTFail()
             return
         }
 
-        XCTAssertTrue(actions.contains("getFollowersButtonAction:"))
+        XCTAssertTrue(actions.contains("searchButtonAction:"))
     }
 
     func test_GetFollwersButton_WhenTapped_FollwerListIsPushed() {
         systemUnderTest.usernameTextField.text = "testUser"
-        systemUnderTest.getFollowersButton.sendActions(for: .touchUpInside)
+        systemUnderTest.searchButton.sendActions(for: .touchUpInside)
         RunLoop.current.run(until: Date())
 
-        guard let _ = navigationController.topViewController as? GFFollowerListViewController else {
+        guard let _ = navigationController.topViewController as? GFUserListViewController else {
             XCTFail("Follower list view controller not pushed")
             return
         }

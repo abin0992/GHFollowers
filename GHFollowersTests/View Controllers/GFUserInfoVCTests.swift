@@ -131,7 +131,6 @@ class GFUserInfoVCTests: XCTestCase {
         systemUnderTest.loadViewIfNeeded()
 
         systemUnderTest.githubProfileButton.sendActions(for: .touchUpInside)
-        RunLoop.current.run(until: Date())
 
         let safariExpectation: XCTestExpectation = expectation(description: "show SFSafariVC")
 

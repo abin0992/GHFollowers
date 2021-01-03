@@ -27,7 +27,7 @@ class GHSearchVCUITests: XCUITestBase {
 
     func test_EmptyUsernameAlertIsPresented() {
         // Tap on get follwers button
-        app.buttons[AccessibilityIdentifier.searchViewGetFollowersButton.rawValue].staticTexts["Get Followers"].tap()
+        app.buttons[AccessibilityIdentifier.searchButton.rawValue].staticTexts["Search"].tap()
 
         check_EmptyUsernameAlert_IsPresented()
 
@@ -53,7 +53,7 @@ class GHSearchVCUITests: XCUITestBase {
         app.otherElements[AccessibilityIdentifier.searchView.rawValue].tap()
 
         // Tap on get follwers button
-        app.buttons[AccessibilityIdentifier.searchViewGetFollowersButton.rawValue].staticTexts["Get Followers"].tap()
+        app.buttons[AccessibilityIdentifier.searchButton.rawValue].staticTexts["Search"].tap()
     }
 
     func check_FollwerListScreen_IsShown() {

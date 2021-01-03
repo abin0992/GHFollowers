@@ -10,14 +10,14 @@ import Foundation
 enum AccessibilityIdentifier: String {
     case
         searchView = "view-Search",
-        followerListView = "view-FollowerList",
+        userListView = "view-UserList",
         userInfoView = "view-UserInfo",
         gfAlertView = "view-GFAlertView",
-        followerListCollectionView,
-        followerCell,
+        userListCollectionView,
+        userCell,
         usernameTextField,
-        searchViewGetFollowersButton,
-        followerListBackButton,
+        searchButton,
+        userListBackButton,
         userInfoGetFollowersButton,
         userInfoGithubProfileButton,
         userInfoDoneButton

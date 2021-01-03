@@ -62,7 +62,7 @@ class GHFollowersListVCUITests: XCUITestBase {
         app.otherElements[AccessibilityIdentifier.searchView.rawValue].tap()
 
         // Tap on get follwers button
-        app.buttons[AccessibilityIdentifier.searchViewGetFollowersButton.rawValue].staticTexts["Get Followers"].tap()
+        app.buttons[AccessibilityIdentifier.searchButton.rawValue].staticTexts["Search"].tap()
 
         let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.followerListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
