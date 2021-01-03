@@ -13,6 +13,7 @@ enum GFError: Error {
     case unableToComplete
     case invalidResponse
     case invalidData
+    case limitExceeded
 
     var description: String {
             switch self {
@@ -24,6 +25,8 @@ enum GFError: Error {
                 return "Invalid response from the server. Please try again."
             case .invalidData:
                 return "The data received from the server was invalid. Please try again."
+            case .limitExceeded:
+                return "Github API rate limit exceeded. Wait for 60 seconds and try again."
             }
         }
 }

@@ -60,15 +60,6 @@ class GFUserInfoVCTests: XCTestCase {
         XCTAssertNotNil(systemUnderTest.tableView, "GFUserInfoViewController should have a tableview")
     }
 
-    func test_HasLoadingView() {
-        let loadingView: UIView = systemUnderTest.loadingView
-        XCTAssertNotNil(loadingView)
-    }
-
-    func test_LoadingViewIsVisible() {
-        XCTAssertEqual(self.systemUnderTest.tableView.backgroundView, self.systemUnderTest.loadingView)
-    }
-
     func test_TableViewHasDataSource() {
         XCTAssertTrue(systemUnderTest.tableView.dataSource is GFUserInfoViewController)
 
@@ -137,12 +128,18 @@ class GFUserInfoVCTests: XCTestCase {
         let navigationController: UINavigationController = UINavigationController(rootViewController: systemUnderTest)
         UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = navigationController
 
-        systemUnderTest.githubProfileButton.sendActions(for: .touchUpInside)
-        RunLoop.current.run(until: Date())
+        systemUnderTest.loadViewIfNeeded()
 
-        guard let _ = navigationController.viewControllers.last?.presentedViewController as? SFSafariViewController else {
+        systemUnderTest.githubProfileButton.sendActions(for: .touchUpInside)
+
+        let safariExpectation: XCTestExpectation = expectation(description: "show SFSafariVC")
+
+        if let _ = navigationController.viewControllers.last?.presentedViewController as? SFSafariViewController {
+            safariExpectation.fulfill()
+        } else {
             XCTFail("SFSafariViewController was not presented")
             return
         }
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }

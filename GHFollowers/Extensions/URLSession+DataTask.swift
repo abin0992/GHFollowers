@@ -15,13 +15,17 @@ extension URLSession {
                 return
             }
 
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                result(.failure(.invalidResponse))
+            guard let data = data,
+                  let response = response as? HTTPURLResponse else {
+                result(.failure(.invalidData))
                 return
             }
 
-            guard let data = data else {
-                result(.failure(.invalidData))
+            if response.statusCode == 304 {
+                result(.failure(.limitExceeded))
+                return
+            } else if response.statusCode != 200 {
+                result(.failure(.invalidResponse))
                 return
             }
 

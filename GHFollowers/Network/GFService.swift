@@ -9,23 +9,24 @@ import Foundation
 
 class GFService {
 
-    // MARK: Follwer list API
+    // MARK: User list API
 
-    func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
+    func fetchUsers(for searchKey: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "q", value: "\(searchKey)"),
             URLQueryItem(name: "per_page", value: "100"),
             URLQueryItem(name: "page", value: "\(page)")
         ]
 
-        guard let url = GFEndpoint.followersList(for: username, queryItems: queryItems).url else {
+        guard let url = GFEndpoint.users(queryItems: queryItems).url else {
             completion(.failure(.invalidUsername))
             return
         }
 
-        GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<[Follower], GFError>) in
+        GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<UserList, GFError>) in
             switch result {
             case .success (let dataArray):
-                completion(.success(dataArray))
+                completion(.success(dataArray.items))
             case .failure(let exception):
                 completion(.failure(exception))
             }
@@ -34,13 +35,13 @@ class GFService {
 
     // MARK: User info API
 
-    func fetchUserInfo(for username: String, completion: @escaping (Result<User, GFError>) -> Void) {
+    func fetchUserInfo(for username: String, completion: @escaping (Result<UserDetail, GFError>) -> Void) {
         guard let url = GFEndpoint.userInfo(for: username).url else {
             completion(.failure(.invalidUsername))
             return
         }
 
-        GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<User, GFError>) in
+        GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<UserDetail, GFError>) in
             switch result {
             case .success (let user):
                 completion(.success(user))
@@ -49,4 +50,27 @@ class GFService {
             }
         }
     }
+
+    // MARK: Followers List
+
+    func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+            let queryItems: [URLQueryItem] = [
+                URLQueryItem(name: "per_page", value: "100"),
+                URLQueryItem(name: "page", value: "\(page)")
+            ]
+
+            guard let url = GFEndpoint.followersList(for: username, queryItems: queryItems).url else {
+                completion(.failure(.invalidUsername))
+                return
+            }
+
+            GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<[User], GFError>) in
+                switch result {
+                case .success (let dataArray):
+                    completion(.success(dataArray))
+                case .failure(let exception):
+                    completion(.failure(exception))
+                }
+            }
+        }
 }

@@ -25,10 +25,9 @@ class GFUserInfoViewController: UITableViewController {
 
     var username: String!
     var isLoading: Bool = false
-    var user: User!
+    var user: UserDetail!
     weak var delegate: UserInfoVCDelegate!
     var networkService: GFService = GFService()
-    var loadingView: UIView = UIView()
 
     // MARK: - View life cycle
 
@@ -49,7 +48,7 @@ class GFUserInfoViewController: UITableViewController {
 
     func getUserInfo(completion: OptionalCompletionClosure = nil) {
         isLoading = true
-        tableView.backgroundView = loadingView
+        showLoadingView()
         networkService.fetchUserInfo(for: username) { [weak self] result in
             guard let self = self else {
                 return
@@ -74,10 +73,9 @@ class GFUserInfoViewController: UITableViewController {
 
     private func configureTableView() {
         tableView.rowHeight = UITableView.automaticDimension
-        loadingView = self.loadingView()
     }
 
-    func configureUIElements(with user: User) {
+    func configureUIElements(with user: UserDetail) {
         tableView.beginUpdates()
         avatarImageView.downloadImage(fromURL: user.avatarUrl)
         usernameLabel.text = user.login
@@ -90,12 +88,6 @@ class GFUserInfoViewController: UITableViewController {
         followingCountLabel.text = String(user.following)
         yearLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
         tableView.endUpdates()
-    }
-
-    private func dismissLoadingView() {
-        DispatchQueue.main.async {
-            self.tableView.backgroundView = nil
-        }
     }
 
     // MARK: - Button Actions
@@ -114,7 +106,7 @@ class GFUserInfoViewController: UITableViewController {
     }
 
     @IBAction func follwersButtonAction(_ sender: Any) {
-        delegate.didRequestFollowers(for: user.login)
+        delegate.didRequestUsers(for: user.login)
         self.dismiss(animated: true)
     }
 }
@@ -137,5 +129,5 @@ extension GFUserInfoViewController {
 
 // MARK: - Custom Protocol
 protocol UserInfoVCDelegate: class {
-    func didRequestFollowers(for username: String)
+    func didRequestUsers(for username: String)
 }

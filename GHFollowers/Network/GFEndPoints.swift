@@ -20,9 +20,9 @@ struct GFEndpoint {
         return components.url
     }
 
-    static func followersList(for username: String, queryItems: [URLQueryItem]) -> GFEndpoint {
+    static func users(queryItems: [URLQueryItem]) -> GFEndpoint {
         GFEndpoint(
-            path: "/users/\(username)/followers", queryItems: queryItems
+            path: "/search/users", queryItems: queryItems
         )
     }
 
@@ -31,4 +31,10 @@ struct GFEndpoint {
             path: "/users/\(username)", queryItems: nil
         )
     }
+
+    static func followersList(for username: String, queryItems: [URLQueryItem]) -> GFEndpoint {
+            GFEndpoint(
+                path: "/users/\(username)/followers", queryItems: queryItems
+            )
+        }
 }

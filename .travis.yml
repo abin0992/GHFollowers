@@ -10,6 +10,4 @@ xcode_destination: platform=iOS Simulator,OS=14.2,name=iPhone 12 Pro
 
 script:
  - swiftlint
- - xcodebuild clean build test -project 'GHFollowers.xcodeproj' -scheme 'GHFollowers' -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=14.2'
- - xcodebuild -project 'GHFollowers.xcodeproj' -scheme 'GHFollowersUITests'  -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=14.2' test
-
+ - xcodebuild clean build -project 'GHFollowers.xcodeproj' -scheme 'GHFollowers' -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=14.2'
