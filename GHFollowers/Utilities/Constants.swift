@@ -16,8 +16,8 @@ struct Alert {
     static let emptyUsernameMessage: String = "Please enter a username. We need to know who to look for 😀."
     static let okButtonLabel: String = "Ok"
 
-    static let errorTitle: String = "Bad Stuff Happend"
-    static let unknownErrorTitle: String = "Something went wrong"
+    static let errorTitle: String = "Oops 🙁"
+    static let unknownErrorTitle: String = "Something went wrong 🙁"
     static let invalidUrlTitle: String = "Invalid URL"
     static let invalidUrlMessage: String = "The url attached to this user is invalid."
 }
