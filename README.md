@@ -1,4 +1,4 @@
-[![YourActionName Actions Status](https://github.com/abin0992/GHFollowers/workflows/CI/badge.svg)](https://github.com/abin0992/GHFollowers/actions) [![Build Status](https://travis-ci.org/abin0992/GHFollowers.svg?branch=main)](https://travis-ci.org/abin0992/GHFollowers)
+[![YourActionName Actions Status](https://github.com/abin0992/GHFollowers/workflows/CI/badge.svg)](https://github.com/abin0992/GHFollowers/actions) [![Build Status](https://travis-ci.com/abin0992/GHFollowers.svg?branch=CI-integration)](https://travis-ci.com/abin0992/GHFollowers)
 # GHFollowers
 GHFollowers is an iOS app that allows the user to search for github users.
 
