@@ -50,4 +50,27 @@ class GFService {
             }
         }
     }
+
+    // MARK: Followers List
+
+    func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+            let queryItems: [URLQueryItem] = [
+                URLQueryItem(name: "per_page", value: "100"),
+                URLQueryItem(name: "page", value: "\(page)")
+            ]
+
+            guard let url = GFEndpoint.followersList(for: username, queryItems: queryItems).url else {
+                completion(.failure(.invalidUsername))
+                return
+            }
+
+            GFNetworkManager.sharedInstance.fetchData(from: url) { (result: Swift.Result<[User], GFError>) in
+                switch result {
+                case .success (let dataArray):
+                    completion(.success(dataArray))
+                case .failure(let exception):
+                    completion(.failure(exception))
+                }
+            }
+        }
 }

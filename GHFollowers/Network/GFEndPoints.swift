@@ -31,4 +31,10 @@ struct GFEndpoint {
             path: "/users/\(username)", queryItems: nil
         )
     }
+
+    static func followersList(for username: String, queryItems: [URLQueryItem]) -> GFEndpoint {
+            GFEndpoint(
+                path: "/users/\(username)/followers", queryItems: queryItems
+            )
+        }
 }

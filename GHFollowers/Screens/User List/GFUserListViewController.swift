@@ -16,6 +16,7 @@ class GFUserListViewController: UIViewController {
     var page: Int = 1
     var hasMoreUsers: Bool = true
     var isSearching: Bool = false
+    var isFollwersList: Bool = false
     var isLoadingMoreusers: Bool = false
     lazy var dataSource: DataSource = makeDataSource()
     var emptyStateView: UIView?
@@ -146,7 +147,11 @@ extension GFUserListViewController: UICollectionViewDelegate {
                 return
             }
             page += 1
-            fetchUsers(username: username, page: page)
+            if isFollwersList {
+                fetchFollowers(username: username, page: page)
+            } else {
+                fetchUsers(username: username, page: page)
+            }
         }
     }
 
@@ -170,11 +175,34 @@ extension GFUserListViewController: UICollectionViewDelegate {
 extension GFUserListViewController: UserInfoVCDelegate {
     func didRequestUsers(for username: String) {
         self.username = username
-        title = username
+        title = "Followers List"
         page = 1
         hasMoreUsers = true
         users.removeAll()
         usersCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        fetchUsers(username: username, page: page)
+        fetchFollowers(username: username, page: page)
+    }
+
+    func fetchFollowers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
+        showLoadingView()
+        isLoadingMoreusers = true
+
+        networkService.fetchFollowers(for: username, page: page) { [weak self] result in
+
+            guard let self = self else {
+                return
+            }
+            self.dismissLoadingView()
+
+            switch result {
+            case .success(let followers):
+                self.updateUI(with: followers)
+
+            case .failure(let error):
+                self.presentGFAlertOnMainThread(title: Alert.errorTitle, message: error.description, buttonTitle: Alert.okButtonLabel)
+            }
+
+            self.isLoadingMoreusers = false
+        }
     }
 }
