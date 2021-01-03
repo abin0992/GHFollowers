@@ -5,7 +5,7 @@ GHFollowers is an iOS app that allows the user to search for github users.
 #### Project Features
 
   - Seach for user, see list of users and user info screen
-  - Adds pagination for loading follower list
+  - Adds pagination for loading user or follower list
   - Makes use of new APIs like [UICollectionViewDiffableDataSource](https://developer.apple.com/documentation/uikit/uicollectionviewdiffabledatasource), [Result type](https://developer.apple.com/documentation/swift/result)
   - Integrated UI tests
   - Integrated Unit tests 
