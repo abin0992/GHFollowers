@@ -10,32 +10,32 @@ import XCTest
 
 class MockNetworkService: GFService {
 
-    static let testFollowerListJSONFile: String = "test_followerList"
+    static let testUserListJSONFile: String = "test_userList"
     static let testUserInfoJSONFile: String = "test_userInfo"
 
-    override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
-        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testFollowerListJSONFile, withExtension: "json") else {
-            XCTFail("Loading file '\(MockNetworkService.testFollowerListJSONFile).json' failed!")
+    override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testUserListJSONFile, withExtension: "json") else {
+            XCTFail("Loading file '\(MockNetworkService.testUserListJSONFile).json' failed!")
             return
         }
 
-        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<[Follower], GFError>) in
+        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<UserList, GFError>) in
             switch result {
             case .success (let dataArray):
-                completion(.success(dataArray))
+                completion(.success(dataArray.items))
             case .failure(let exception):
                 completion(.failure(exception))
             }
         }
     }
 
-    override func fetchUserInfo(for username: String, completion: @escaping (Result<User, GFError>) -> Void) {
+    override func fetchUserInfo(for username: String, completion: @escaping (Result<UserDetail, GFError>) -> Void) {
         guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testUserInfoJSONFile, withExtension: "json") else {
-            XCTFail("Loading file '\(MockNetworkService.testFollowerListJSONFile).json' failed!")
+            XCTFail("Loading file '\(MockNetworkService.testUserInfoJSONFile).json' failed!")
             return
         }
 
-        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<User, GFError>) in
+        MockNetworkManager.shared.fetchData(from: jsonURL) { (result: Swift.Result<UserDetail, GFError>) in
             switch result {
             case .success (let user):
                 completion(.success(user))

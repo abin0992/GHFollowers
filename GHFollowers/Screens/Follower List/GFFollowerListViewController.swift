@@ -12,7 +12,7 @@ class GFFollowerListViewController: UIViewController {
     @IBOutlet weak var followersCollectionView: UICollectionView!
 
     var username: String!
-    var followers: [Follower] = []
+    var followers: [User] = []
     var page: Int = 1
     var hasMoreFollowers: Bool = true
     var isSearching: Bool = false
@@ -22,11 +22,10 @@ class GFFollowerListViewController: UIViewController {
     let displayUserInfoSegueIdentifier: String = "showUserInfoSegue"
     let reuseIdentifier: String = "FollowerCell"
     var networkService: GFService = GFService()
-    var loadingView: UIView = UIView()
 
     // MARK: - Value Types
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Follower>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Follower>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, User>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, User>
 
     enum Section { case main }
 
@@ -53,7 +52,7 @@ class GFFollowerListViewController: UIViewController {
     typealias OptionalCompletionClosure = (() -> Void)?
 
     func fetchFollowers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
-        followersCollectionView.backgroundView = loadingView
+        showLoadingView()
         isLoadingMoreFollowers = true
 
         networkService.fetchFollowers(for: username, page: page) { [weak self] result in
@@ -84,7 +83,6 @@ class GFFollowerListViewController: UIViewController {
     }
 
     private func configureCollectionView() {
-        loadingView = self.loadingView()
         followersCollectionView.delegate = self
         followersCollectionView.backgroundColor = .systemBackground
         followersCollectionView.collectionViewLayout = createThreeColumnFlowLayout()
@@ -105,8 +103,7 @@ class GFFollowerListViewController: UIViewController {
     }
 
     private func makeDataSource() -> DataSource {
-        let dataSource: DataSource = DataSource(collectionView: followersCollectionView) { collectionView, indexPath, follower ->
-          UICollectionViewCell? in
+        let dataSource: DataSource = DataSource(collectionView: followersCollectionView) { collectionView, indexPath, follower -> UICollectionViewCell? in
             let cell: GFFollowerCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as? GFFollowerCell ?? GFFollowerCell()
             cell.set(follower: follower)
             return cell
@@ -114,7 +111,7 @@ class GFFollowerListViewController: UIViewController {
         return dataSource
     }
 
-    private func updateUI(with followers: [Follower]) {
+    private func updateUI(with followers: [User]) {
         if followers.count < 100 { self.hasMoreFollowers = false }
         self.followers.append(contentsOf: followers)
 
@@ -128,18 +125,12 @@ class GFFollowerListViewController: UIViewController {
         self.updateData(on: self.followers)
     }
 
-    func updateData(on followers: [Follower]) {
+    func updateData(on followers: [User]) {
         var snapshot: NSDiffableDataSourceSnapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: true)
-        }
-    }
-
-    private func dismissLoadingView() {
-        DispatchQueue.main.async {
-            self.followersCollectionView.backgroundView = nil
         }
     }
 }
@@ -161,7 +152,7 @@ extension GFFollowerListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let follower: Follower = followers[indexPath.item]
+        let follower: User = followers[indexPath.item]
 
         if let mainStoryboard: UIStoryboard = storyboard {
             let destinationViewController: GFUserInfoViewController = mainStoryboard.instantiateViewController(identifier: GFUserInfoViewController.className) as GFUserInfoViewController

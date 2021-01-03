@@ -44,15 +44,6 @@ class GFFollowerListVCTests: XCTestCase {
         XCTAssertNotNil(systemUnderTest.followersCollectionView, "GFFollowerListViewController should have a collection view")
     }
 
-    func test_CollectionView_HasLoadingView() {
-        let loadingView: UIView = systemUnderTest.loadingView
-        XCTAssertNotNil(loadingView)
-    }
-
-    func test_IsLoadingViewVisible() {
-        XCTAssertEqual(systemUnderTest.followersCollectionView.backgroundView, systemUnderTest.loadingView)
-    }
-
     func test_Controller_ShouldSetCollectionViewDelegate() {
         XCTAssertNotNil(systemUnderTest.followersCollectionView.delegate)
     }
@@ -92,7 +83,7 @@ class GFFollowerListVCTests: XCTestCase {
                 return
             }
 
-            let follower: Follower = self.systemUnderTest.followers[indexPath.section]
+            let follower: User = self.systemUnderTest.followers[indexPath.section]
             XCTAssertEqual(cell.usernameLabel.text, follower.login)
 
             let expectedReuseIdentifier: String = self.systemUnderTest.reuseIdentifier

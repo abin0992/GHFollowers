@@ -12,7 +12,7 @@ class GFFollowerCell: UICollectionViewCell {
     @IBOutlet weak var avatarImageView: GFAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
 
-    func set(follower: Follower) {
+    func set(follower: User) {
         avatarImageView.downloadImage(fromURL: follower.avatarUrl)
         usernameLabel.text = follower.login
     }

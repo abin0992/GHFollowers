@@ -9,9 +9,9 @@
 import XCTest
 
 class MockEmptyFollwersService: GFService {
-    override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
+    override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
 
-        let result: [Follower] = []
+        let result: [User] = []
         completion(.success(result))
     }
 }
