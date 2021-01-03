@@ -1,6 +1,6 @@
 [![YourActionName Actions Status](https://github.com/abin0992/GHFollowers/workflows/CI/badge.svg)](https://github.com/abin0992/GHFollowers/actions) [![Build Status](https://travis-ci.org/abin0992/GHFollowers.svg?branch=main)](https://travis-ci.org/abin0992/GHFollowers)
 # GHFollowers
-GHFollowers is an app to search for github users.
+GHFollowers is an iOS app that allows the user to search for github users.
 
 #### Project Features
 
@@ -22,6 +22,12 @@ Clone and run on your machine.
   ```bash
   git clone https://github.com/abin0992/GHFollowers.git
   ```
+### Screenshots
+##### Dark Mode
+![alt text](https://github.com/abin0992/GHFollowers/blob/CI-integration/.screenshots/darkMode.png?raw=true)
+
+##### Light Mode
+![alt text](https://github.com/abin0992/GHFollowers/blob/CI-integration/.screenshots/lightMode.png?raw=true)
 
 ### Todos
 
