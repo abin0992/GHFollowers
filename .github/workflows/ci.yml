@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  Build-and-Test:
 
     runs-on: macos-latest
 
