@@ -10,12 +10,12 @@ import XCTest
 
 class MockNetworkService: GFService {
 
-    private let testFollowerListJSONFile: String = "test_followerList"
-    private let testUserInfoJSONFile: String = "test_userInfo"
+    static let testFollowerListJSONFile: String = "test_followerList"
+    static let testUserInfoJSONFile: String = "test_userInfo"
 
     override func fetchFollowers(for username: String, page: Int, completion: @escaping (Result<[Follower], GFError>) -> Void) {
-        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: testFollowerListJSONFile, withExtension: "json") else {
-            XCTFail("Loading file '\(testFollowerListJSONFile).json' failed!")
+        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testFollowerListJSONFile, withExtension: "json") else {
+            XCTFail("Loading file '\(MockNetworkService.testFollowerListJSONFile).json' failed!")
             return
         }
 
@@ -30,8 +30,8 @@ class MockNetworkService: GFService {
     }
 
     override func fetchUserInfo(for username: String, completion: @escaping (Result<User, GFError>) -> Void) {
-        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: testUserInfoJSONFile, withExtension: "json") else {
-            XCTFail("Loading file '\(testFollowerListJSONFile).json' failed!")
+        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testUserInfoJSONFile, withExtension: "json") else {
+            XCTFail("Loading file '\(MockNetworkService.testFollowerListJSONFile).json' failed!")
             return
         }
 

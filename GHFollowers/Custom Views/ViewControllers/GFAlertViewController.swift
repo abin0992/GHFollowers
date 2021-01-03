@@ -35,6 +35,7 @@ class GFAlertViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         self.view.addSubviews(containerView, titleLabel, actionButton, messageLabel)
+        self.view.accessibilityIdentifier = AccessibilityIdentifier.gfAlertView.rawValue
 
         configureContainerView()
         configureTitleLabel()

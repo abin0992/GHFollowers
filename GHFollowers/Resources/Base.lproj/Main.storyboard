@@ -195,7 +195,7 @@
         <scene sceneID="fmZ-0a-9bj">
             <objects>
                 <tableViewController storyboardIdentifier="GFUserInfoViewController" id="2si-UB-j9b" customClass="GFUserInfoViewController" customModule="GHFollowers" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HTS-ww-nvM">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HTS-ww-nvM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -573,6 +573,9 @@
                     <navigationItem key="navigationItem" id="QXa-3I-V3v">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="2jJ-gi-DKD">
                             <color key="tintColor" systemColor="systemGreenColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="userInfoDoneButton"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="dismissUserInfoViewController:" destination="2si-UB-j9b" id="5EF-EE-O1R"/>
                             </connections>

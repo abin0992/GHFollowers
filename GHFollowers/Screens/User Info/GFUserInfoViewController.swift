@@ -35,6 +35,10 @@ class GFUserInfoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.accessibilityIdentifier = AccessibilityIdentifier.userInfoView.rawValue
+        getFollowersButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGetFollowersButton.rawValue
+        githubProfileButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGithubProfileButton.rawValue
+
         configureTableView()
         getUserInfo()
     }

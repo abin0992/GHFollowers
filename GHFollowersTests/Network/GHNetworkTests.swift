@@ -16,10 +16,8 @@ class NetworkManagerTests: XCTestCase {
     func testFetchingFollwers() {
         let follwersExpectation: XCTestExpectation = expectation(description: "follwer list")
 
-        let testFollowerListJSONFile: String = "test_followerList"
-
-        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: testFollowerListJSONFile, withExtension: "json") else {
-            XCTFail("Loading file '\(testFollowerListJSONFile).json' failed!")
+        guard let jsonURL = Bundle(for: type(of: self)).url(forResource: MockNetworkService.testFollowerListJSONFile, withExtension: "json") else {
+            XCTFail("Loading file '\(MockNetworkService.testFollowerListJSONFile).json' failed!")
             return
         }
 

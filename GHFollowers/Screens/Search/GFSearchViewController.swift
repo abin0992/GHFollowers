@@ -38,6 +38,10 @@ class GFSearchViewController: UIViewController {
     // MARK: Private functions
 
     private func configureUI() {
+        view.accessibilityIdentifier = AccessibilityIdentifier.searchView.rawValue
+        usernameTextField.accessibilityIdentifier = AccessibilityIdentifier.usernameTextField.rawValue
+        getFollowersButton.accessibilityIdentifier = AccessibilityIdentifier.searchViewGetFollowersButton.rawValue
+
         usernameTextField.layer.cornerRadius = 10
         usernameTextField.layer.borderWidth = 2
         usernameTextField.layer.borderColor = UIColor.systemGray4.cgColor

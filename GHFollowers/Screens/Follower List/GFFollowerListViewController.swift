@@ -37,6 +37,8 @@ class GFFollowerListViewController: UIViewController {
         if let mainStoryboard: UIStoryboard = storyboard {
             emptyStateView = mainStoryboard.instantiateViewController(withIdentifier: GFEmptyStateViewController.className).view
         }
+        view.accessibilityIdentifier = AccessibilityIdentifier.followerListView.rawValue
+        followersCollectionView.accessibilityIdentifier = AccessibilityIdentifier.followerListCollectionView.rawValue
         configureCollectionView()
         fetchFollowers(username: username, page: page)
     }
@@ -147,6 +149,7 @@ class GFFollowerListViewController: UIViewController {
 extension GFFollowerListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.accessibilityIdentifier = AccessibilityIdentifier.followerCell.rawValue
         if indexPath.item == followers.count - 1 {
             guard hasMoreFollowers, !isLoadingMoreFollowers else {
                 return
