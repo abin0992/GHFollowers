@@ -57,7 +57,7 @@ class GHSearchVCUITests: XCUITestBase {
     }
 
     func check_FollwerListScreen_IsShown() {
-        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.followerListView.rawValue]
+        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.userListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
         XCTAssertTrue(followerListViewIsShown)
     }

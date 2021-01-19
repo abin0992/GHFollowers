@@ -24,7 +24,7 @@ class GHFollowersListVCUITests: XCUITestBase {
 
     func test_UserInfoScreenIsPresented() {
         navigateToFollowerListScreen()
-        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.followerListCollectionView.rawValue]
+        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.userListCollectionView.rawValue]
         followerListCollectionView.cells.element(boundBy: 0).tap()
         check_UserInfoScreenIsPresented()
     }
@@ -40,8 +40,8 @@ class GHFollowersListVCUITests: XCUITestBase {
 
     func check_FollowerList_IsLoaded_WithData() {
         // Assuming the test user we used still exists
-        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.followerListCollectionView.rawValue]
-        let followerCell: XCUIElement = followerListCollectionView.cells.element(matching: .cell, identifier: AccessibilityIdentifier.followerCell.rawValue)
+        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.userListCollectionView.rawValue]
+        let followerCell: XCUIElement = followerListCollectionView.cells.element(matching: .cell, identifier: AccessibilityIdentifier.userCell.rawValue)
         expectation(for: NSPredicate(format: "exists == 1"), evaluatedWith: followerCell, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
     }
@@ -64,7 +64,7 @@ class GHFollowersListVCUITests: XCUITestBase {
         // Tap on get follwers button
         app.buttons[AccessibilityIdentifier.searchButton.rawValue].staticTexts["Search"].tap()
 
-        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.followerListView.rawValue]
+        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.userListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
         XCTAssertTrue(followerListViewIsShown)
     }

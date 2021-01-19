@@ -585,6 +585,7 @@
                     <connections>
                         <outlet property="avatarImageView" destination="zc5-RQ-DEq" id="VZd-Bq-0aS"/>
                         <outlet property="bioLabel" destination="j7B-ON-6qK" id="AyY-BT-Hy7"/>
+                        <outlet property="doneButton" destination="2jJ-gi-DKD" id="z6B-aR-FW2"/>
                         <outlet property="followersCountLabel" destination="q6c-yy-GzD" id="tab-Xg-0My"/>
                         <outlet property="followingCountLabel" destination="GDG-7x-ECA" id="3hm-Uj-uHU"/>
                         <outlet property="getFollowersButton" destination="wo9-6v-uvV" id="rqO-0Q-zxj"/>
