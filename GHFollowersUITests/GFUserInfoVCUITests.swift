@@ -18,21 +18,21 @@ class GFUserInfoVCUITests: XCUITestBase {
         XCTAssertNotNil(urlElement)
     }
 
-    func test_NavigationToFollowersList() {
+    func test_NavigationToUsersList() {
         navigateToUserInfoScreen()
         app.buttons[AccessibilityIdentifier.userInfoGetFollowersButton.rawValue].staticTexts["Get Followers"].tap()
-        check_FollowerListScreenIsVisible()
+        check_UserListScreenIsVisible()
     }
 
     func test_DismissUserInfoSCreen() {
         navigateToUserInfoScreen()
         app.navigationBars.buttons[AccessibilityIdentifier.userInfoDoneButton.rawValue].tap()
-        check_FollowerListScreenIsVisible()
+        check_UserListScreenIsVisible()
     }
 
     // MARK: - Helper
 
-    func check_FollowerListScreenIsVisible() {
+    func check_UserListScreenIsVisible() {
         let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.userListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
         XCTAssertTrue(followerListViewIsShown)

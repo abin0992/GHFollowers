@@ -21,6 +21,7 @@ class GFUserInfoViewController: UITableViewController {
     @IBOutlet weak var followingCountLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var getFollowersButton: GFButton!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var githubProfileButton: GFButton!
 
     var username: String!
@@ -37,6 +38,7 @@ class GFUserInfoViewController: UITableViewController {
         view.accessibilityIdentifier = AccessibilityIdentifier.userInfoView.rawValue
         getFollowersButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGetFollowersButton.rawValue
         githubProfileButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGithubProfileButton.rawValue
+        doneButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoDoneButton.rawValue
 
         configureTableView()
         getUserInfo()
