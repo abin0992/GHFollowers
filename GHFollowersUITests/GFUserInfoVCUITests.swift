@@ -33,7 +33,7 @@ class GFUserInfoVCUITests: XCUITestBase {
     // MARK: - Helper
 
     func check_FollowerListScreenIsVisible() {
-        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.followerListView.rawValue]
+        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.userListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
         XCTAssertTrue(followerListViewIsShown)
     }
@@ -50,12 +50,12 @@ class GFUserInfoVCUITests: XCUITestBase {
         // Tap on get follwers button
         app.buttons[AccessibilityIdentifier.searchButton.rawValue].staticTexts["Search"].tap()
 
-        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.followerListView.rawValue]
+        let followerListView: XCUIElement = app.otherElements[AccessibilityIdentifier.userListView.rawValue]
         let followerListViewIsShown: Bool = followerListView.waitForExistence(timeout: 5)
         XCTAssertTrue(followerListViewIsShown)
 
         // Tap on a follower item
-        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.followerListCollectionView.rawValue]
+        let followerListCollectionView: XCUIElement = app.collectionViews[AccessibilityIdentifier.userListCollectionView.rawValue]
         followerListCollectionView.cells.element(boundBy: 0).tap()
 
         let userInfoView: XCUIElementQuery =
