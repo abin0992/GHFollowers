@@ -74,7 +74,6 @@ class GFSearchViewController: UIViewController {
            let userList: GFUserListViewController = segue.destination as? GFUserListViewController,
            let username: String = usernameTextField.text {
             userList.username = username
-           // userList.isFollwersList = false
         }
     }
 }

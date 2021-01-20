@@ -175,6 +175,7 @@ extension GFUserListViewController: UICollectionViewDelegate {
 extension GFUserListViewController: UserInfoVCDelegate {
     func didRequestUsers(for username: String) {
         self.username = username
+        self.isFollwersList = true
         title = "Followers List"
         page = 1
         hasMoreUsers = true
