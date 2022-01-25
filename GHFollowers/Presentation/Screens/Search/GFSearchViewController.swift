@@ -7,10 +7,12 @@
 
 import UIKit
 
-class GFSearchViewController: UIViewController {
+class GFSearchViewController: UIViewController, Storyboardable {
 
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var searchButton: GFButton!
+
+    var searchUser: ((String) -> Void)?
 
     var isUsernameEntered: Bool {
         if let username: String = usernameTextField.text {
@@ -18,7 +20,6 @@ class GFSearchViewController: UIViewController {
         }
         return false
     }
-    let displayUserListSegueIdentifier: String = "showUsersSegue"
 
     // MARK: View lifecycle
 
@@ -60,21 +61,13 @@ class GFSearchViewController: UIViewController {
         }
 
         usernameTextField.resignFirstResponder()
-        self.performSegue(withIdentifier: displayUserListSegueIdentifier, sender: self)
+        if let username: String = usernameTextField.text {
+            self.searchUser?(username)
+        }
     }
 
     @IBAction func searchButtonAction(_ sender: Any) {
         pushUserListVC()
-    }
-
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == displayUserListSegueIdentifier,
-           let userList: GFUserListViewController = segue.destination as? GFUserListViewController,
-           let username: String = usernameTextField.text {
-            userList.username = username
-        }
     }
 }
 

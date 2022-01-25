@@ -5,6 +5,7 @@
 //  Created by Abin Baby on 29/12/20.
 //
 
+import FeedEngine
 import UIKit
 
 class GFUserCell: UICollectionViewCell {

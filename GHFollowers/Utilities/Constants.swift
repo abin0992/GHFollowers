@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Constants {
-    static let baseUrl: String = "api.github.com"
-}
-
 struct Alert {
     static let emptyUsernameTitle: String = "Empty Username"
     static let emptyUsernameMessage: String = "Please enter a username. We need to know who to look for 😀."
@@ -20,4 +16,8 @@ struct Alert {
     static let unknownErrorTitle: String = "Something went wrong 🙁"
     static let invalidUrlTitle: String = "Invalid URL"
     static let invalidUrlMessage: String = "The url attached to this user is invalid."
+}
+
+struct Storyboards {
+    static let main: String = "main"
 }

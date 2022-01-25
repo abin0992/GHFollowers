@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hzv-iV-Qik">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -19,14 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gh-logo" translatesAutoresizingMaskIntoConstraints="NO" id="gBp-PB-UHU">
-                                <rect key="frame" x="87.5" y="94" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="50" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="5Fa-PD-IM4"/>
                                     <constraint firstAttribute="height" constant="200" id="h6A-V5-WJ2"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter user name" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3Wf-Tx-0XN">
-                                <rect key="frame" x="50" y="342" width="275" height="50"/>
+                                <rect key="frame" x="50" y="298" width="275" height="50"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="k4U-uf-G2t"/>
@@ -66,7 +66,6 @@
                     <connections>
                         <outlet property="searchButton" destination="1hH-ac-zoY" id="S9a-FP-nOw"/>
                         <outlet property="usernameTextField" destination="3Wf-Tx-0XN" id="rgD-OP-8EI"/>
-                        <segue destination="3EB-fZ-sdr" kind="show" identifier="showUsersSegue" id="CwD-Rw-07r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -82,7 +81,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XLy-ip-vxP">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gEg-Bh-Kem">
                                     <size key="itemSize" width="121" height="165"/>
@@ -144,7 +143,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="usersCollectionView" destination="XLy-ip-vxP" id="Tis-bt-8pr"/>
-                        <segue destination="2si-UB-j9b" kind="presentation" identifier="showUserInfoSegue" id="3yz-Iq-erG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKH-x8-KeP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -196,14 +194,14 @@
             <objects>
                 <tableViewController storyboardIdentifier="GFUserInfoViewController" id="2si-UB-j9b" customClass="GFUserInfoViewController" customModule="GHFollowers" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HTS-ww-nvM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="kPi-mG-ldt">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="169" id="Y3n-jO-iSr">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="169"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="169"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y3n-jO-iSr" id="DUg-0t-OUM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="169"/>
@@ -246,7 +244,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;bio&gt;" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7B-ON-6qK" customClass="GFBodyLabel" customModule="GHFollowers" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="117" width="343" height="22.5"/>
+                                                    <rect key="frame" x="16" y="117" width="343" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22.5" id="hmF-n2-NBs"/>
                                                     </constraints>
@@ -280,7 +278,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="167" id="9sy-Vv-mi0">
-                                        <rect key="frame" x="0.0" y="197" width="375" height="167"/>
+                                        <rect key="frame" x="0.0" y="213.5" width="375" height="167"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9sy-Vv-mi0" id="aTW-w5-eqQ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
@@ -410,7 +408,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="167" id="DaL-01-mSf">
-                                        <rect key="frame" x="0.0" y="364" width="375" height="167"/>
+                                        <rect key="frame" x="0.0" y="380.5" width="375" height="167"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DaL-01-mSf" id="Y4c-Ng-9N7">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
@@ -540,7 +538,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="7Jc-eD-dT4">
-                                        <rect key="frame" x="0.0" y="531" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="547.5" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Jc-eD-dT4" id="32o-lB-GKH">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -602,25 +600,6 @@
             </objects>
             <point key="canvasLocation" x="2216.8000000000002" y="-110.19490254872565"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="pRW-KR-T1R">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hzv-iV-Qik" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="IEb-2H-zWg"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oa1-jE-0dz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="NwU-XN-6qf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w0g-XM-wCy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-824.29906542056074" y="-110.15118790496761"/>
-        </scene>
     </scenes>
     <color key="tintColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
     <resources>
@@ -629,7 +608,6 @@
         <image name="folder" catalog="system" width="128" height="97"/>
         <image name="gh-logo" width="554" height="554"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="text.alignleft" catalog="system" width="128" height="100"/>

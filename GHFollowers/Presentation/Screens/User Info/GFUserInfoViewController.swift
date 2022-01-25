@@ -5,10 +5,11 @@
 //  Created by Abin Baby on 29/12/20.
 //
 
+import FeedEngine
 import SafariServices
 import UIKit
 
-class GFUserInfoViewController: UITableViewController {
+class GFUserInfoViewController: UITableViewController, Storyboardable {
 
     @IBOutlet weak var avatarImageView: GFAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -130,6 +131,6 @@ extension GFUserInfoViewController {
 }
 
 // MARK: - Custom Protocol
-protocol UserInfoVCDelegate: class {
+protocol UserInfoVCDelegate: AnyObject {
     func didRequestUsers(for username: String)
 }
