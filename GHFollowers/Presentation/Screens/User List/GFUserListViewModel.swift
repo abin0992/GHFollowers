@@ -25,7 +25,6 @@ class GFUserListViewModel {
     private let feedService: GFService = GFService()
 
     func viewDidLoad() {
-        noUsersState = true
         fetchUsers(username: username, page: page)
     }
 

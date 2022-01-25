@@ -5,6 +5,7 @@
 //  Created by Abin Baby on 29/12/20.
 //
 
+import Combine
 import FeedEngine
 import SafariServices
 import UIKit
@@ -26,10 +27,12 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
     @IBOutlet weak var githubProfileButton: GFButton!
 
     var username: String!
-    var isLoading: Bool = false
-    var user: UserDetail!
+    lazy var viewModel: GFUserInfoViewModel = {
+        let viewModel: GFUserInfoViewModel = GFUserInfoViewModel()
+        return viewModel
+    }()
     weak var delegate: UserInfoVCDelegate!
-    var networkService: GFService = GFService()
+    private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: - View life cycle
 
@@ -42,34 +45,39 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
         doneButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoDoneButton.rawValue
 
         configureTableView()
-        getUserInfo()
+        viewModel.viewDidLoad()
+        bindViewModel()
     }
 
-    // MARK: - API call
-
-    typealias OptionalCompletionClosure = (() -> Void)?
-
-    func getUserInfo(completion: OptionalCompletionClosure = nil) {
-        isLoading = true
-        showLoadingView()
-        networkService.fetchUserInfo(for: username) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            self.isLoading = false
-            self.dismissLoadingView()
-
-            switch result {
-            case .success(let user):
-                self.user = user
-                DispatchQueue.main.async {
-                    self.configureUIElements(with: user)
+    private func bindViewModel() {
+        viewModel.$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                if isLoading {
+                    self?.showLoadingView()
+                } else {
+                    self?.dismissLoadingView()
                 }
-
-            case .failure(let error):
-                self.presentGFAlertOnMainThread(title: Alert.unknownErrorTitle, message: error.description, buttonTitle: Alert.okButtonLabel)
             }
-        }
+            .store(in: &subscriptions)
+
+        viewModel.$user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userInfo in
+                if let userInfo = userInfo {
+                    self?.configureUIElements(with: userInfo)
+                }
+            }
+            .store(in: &subscriptions)
+
+        viewModel.$errorMessage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] message in
+                if !message.isEmpty {
+                    self?.presentGFAlertOnMainThread(title: Alert.errorTitle, message: message, buttonTitle: Alert.okButtonLabel)
+                }
+            }
+            .store(in: &subscriptions)
     }
 
     // MARK: - Private functions
@@ -100,7 +108,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
     }
 
     @IBAction func profileButtonAction(_ sender: Any) {
-        guard let url = URL(string: user.htmlUrl) else {
+        guard let url = URL(string: viewModel.user.htmlUrl) else {
             presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel)
             return
         }
@@ -109,7 +117,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
     }
 
     @IBAction func follwersButtonAction(_ sender: Any) {
-        delegate.didRequestUsers(for: user.login)
+        delegate.didRequestUsers(for: viewModel.user.login)
         self.dismiss(animated: true)
     }
 }
@@ -118,7 +126,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
 
 extension GFUserInfoViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if isLoading {
+        if viewModel.isLoading {
             return 0
         } else {
         return UITableView.automaticDimension
