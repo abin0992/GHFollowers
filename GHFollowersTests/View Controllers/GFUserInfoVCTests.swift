@@ -14,34 +14,29 @@ class GFUserInfoVCTests: XCTestCase {
     // MARK: - Subject under test
 
     var systemUnderTest: GFUserInfoViewController!
-    let mockNetworkService: MockNetworkService = MockNetworkService()
     let testUsername: String = "testUsername"
 
     // MARK: - Setup View controller
 
     override func setUpWithError() throws {
-        super.setUp()
-
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        systemUnderTest = storyboard
-          .instantiateViewController(
-            withIdentifier: GFUserInfoViewController.className) as? GFUserInfoViewController
-
-        systemUnderTest.networkService = mockNetworkService
+        systemUnderTest = GFUserInfoViewController.instantiate()
         systemUnderTest.username = testUsername
-
         systemUnderTest.loadViewIfNeeded()
+        systemUnderTest.viewModel.viewDidLoad()
+
+        try super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
         systemUnderTest = nil
 
-        super.tearDown()
+        try super.tearDownWithError()
     }
 
     // MARK: - Tests
 
     func test_OutletsShouldBeConnected() {
+        systemUnderTest.loadViewIfNeeded()
         XCTAssertNotNil(systemUnderTest.avatarImageView, "Avatar imageview not found")
         XCTAssertNotNil(systemUnderTest.usernameLabel, "Username label not found")
         XCTAssertNotNil(systemUnderTest.nameLabel, "Name label not found")
@@ -71,37 +66,6 @@ class GFUserInfoVCTests: XCTestCase {
         XCTAssertEqual(expectedNumberOfRows, systemUnderTest.tableView.numberOfRows(inSection: 0))
     }
 
-    func test_ControllerFetchesUserInfo() {
-        systemUnderTest.loadViewIfNeeded()
-
-        systemUnderTest.getUserInfo {
-            XCTAssertNotNil(self.systemUnderTest.user)
-        }
-    }
-
-    func test_ControllerLabelsText() {
-        self.systemUnderTest.configureUIElements(with: self.systemUnderTest.user)
-
-        XCTAssertEqual(self.systemUnderTest.usernameLabel.text, self.systemUnderTest.user.login)
-
-        XCTAssertEqual(self.systemUnderTest.nameLabel.text, self.systemUnderTest.user.name)
-
-        XCTAssertEqual(self.systemUnderTest.locationLabel.text, self.systemUnderTest.user.location)
-
-        XCTAssertEqual(self.systemUnderTest.bioLabel.text, self.systemUnderTest.user.bio)
-
-        XCTAssertEqual(self.systemUnderTest.repoCountLabel.text, String(self.systemUnderTest.user.publicRepos))
-
-        XCTAssertEqual(self.systemUnderTest.gistCountLabel.text, String(self.systemUnderTest.user.publicGists))
-
-        XCTAssertEqual(self.systemUnderTest.followersCountLabel.text, String(self.systemUnderTest.user.followers))
-
-        XCTAssertEqual(self.systemUnderTest.followingCountLabel.text, String(self.systemUnderTest.user.following))
-
-        let expectedYearLabel: String = "GitHub since \(self.systemUnderTest.user.createdAt.convertToMonthYearFormat())"
-        XCTAssertEqual(self.systemUnderTest.yearLabel.text, expectedYearLabel)
-    }
-
     func test_GetFollwersButtonHasAction() {
         let getFollowersButton: UIButton = systemUnderTest.getFollowersButton
 
@@ -122,24 +86,5 @@ class GFUserInfoVCTests: XCTestCase {
         }
 
         XCTAssertTrue(actions.contains("profileButtonAction:"))
-    }
-
-    func test_GighubProfileButton_WhenTapped_SFSafariVCIsPresented() {
-        let navigationController: UINavigationController = UINavigationController(rootViewController: systemUnderTest)
-        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = navigationController
-
-        systemUnderTest.loadViewIfNeeded()
-
-        systemUnderTest.githubProfileButton.sendActions(for: .touchUpInside)
-
-        let safariExpectation: XCTestExpectation = expectation(description: "show SFSafariVC")
-
-        if let _ = navigationController.viewControllers.last?.presentedViewController as? SFSafariViewController {
-            safariExpectation.fulfill()
-        } else {
-            XCTFail("SFSafariViewController was not presented")
-            return
-        }
-        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }

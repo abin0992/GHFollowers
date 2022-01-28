@@ -5,9 +5,12 @@
 //  Created by Abin Baby on 29/12/20.
 //
 
+import FeedEngine
 import UIKit
 
 class GFAvatarImageView: UIImageView {
+
+    private let feedService: GFService = GFService()
 
     let placeholderImage: UIImage = #imageLiteral(resourceName: "avatar-placeholder")
 
@@ -28,7 +31,7 @@ class GFAvatarImageView: UIImageView {
     }
 
     func downloadImage(fromURL url: String) {
-        GFNetworkManager.sharedInstance.downloadImage(from: url) { [weak self] image in
+        feedService.downloadImage(from: url) { [weak self] image in
             guard let self = self else {
                 return
             }

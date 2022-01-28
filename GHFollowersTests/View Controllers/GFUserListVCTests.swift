@@ -13,29 +13,28 @@ class GFUserListVCTests: XCTestCase {
     // MARK: - Subject under test
 
     var systemUnderTest: GFUserListViewController!
-    let mockNetworkService: MockNetworkService = MockNetworkService()
+    var mocks: MockFeedRepository!
+    let mockRepository: MockFeedRepository = MockFeedRepository()
     let testUsername: String = "testUsername"
 
     // MARK: - Setup View controller
 
     override func setUpWithError() throws {
-        super.setUp()
 
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        systemUnderTest = storyboard
-          .instantiateViewController(
-            withIdentifier: GFUserListViewController.className) as? GFUserListViewController
+        systemUnderTest = GFUserListViewController.instantiate()
+        mocks = MockFeedRepository()
 
-        systemUnderTest.networkService = mockNetworkService
-        systemUnderTest.username = testUsername
+        systemUnderTest.viewModel = GFUserListViewModel(feedRepository: mocks)
+        systemUnderTest.viewModel.username = testUsername
 
         systemUnderTest.loadViewIfNeeded()
+        try super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
         systemUnderTest = nil
 
-        super.tearDown()
+        try super.tearDownWithError()
     }
 
     // MARK: - Tests
@@ -61,30 +60,15 @@ class GFUserListVCTests: XCTestCase {
         XCTAssertNotNil(systemUnderTest.usersCollectionView.collectionViewLayout)
     }
 
-    func test_NumberOfItemsInSection() {
-        systemUnderTest.users.removeAll()
-        systemUnderTest.loadViewIfNeeded()
-
-        let followersCount: Int = systemUnderTest.users.count
-
-        XCTAssertEqual(1, systemUnderTest.usersCollectionView.numberOfSections)
-        XCTAssertEqual(followersCount, systemUnderTest.usersCollectionView.numberOfItems(inSection: 0))
-    }
-
     func test_Controller_createsCellsWith_ReuseIdentifier() {
-        systemUnderTest.users.removeAll()
         systemUnderTest.loadViewIfNeeded()
+        systemUnderTest.viewModel.fetchUsers(username: testUsername, page: 00) {
+            let indexPath: IndexPath = IndexPath(item: 0, section: 0)
 
-        let indexPath: IndexPath = IndexPath(item: 0, section: 0)
-
-        systemUnderTest.fetchUsers(username: testUsername, page: 1) {
             guard let cell: GFUserCell = self.systemUnderTest.usersCollectionView.dataSource?.collectionView(self.systemUnderTest.usersCollectionView, cellForItemAt: indexPath) as? GFUserCell else {
                 XCTFail("Returning collection view cell failed")
                 return
             }
-
-            let follower: User = self.systemUnderTest.users[indexPath.section]
-            XCTAssertEqual(cell.usernameLabel.text, follower.login)
 
             let expectedReuseIdentifier: String = self.systemUnderTest.reuseIdentifier
             XCTAssertTrue(cell.reuseIdentifier == expectedReuseIdentifier)
@@ -92,12 +76,14 @@ class GFUserListVCTests: XCTestCase {
     }
 
     func test_noFollowersStateIsVisible() {
-        systemUnderTest.networkService = MockEmptyFollwersService()
+
+        mocks.isEmptyFollowerListSucceeded = true
+        systemUnderTest.viewModel = GFUserListViewModel(feedRepository: mocks)
 
         systemUnderTest.loadViewIfNeeded()
-        XCTAssertNotNil(systemUnderTest.emptyStateView)
+        systemUnderTest.viewModel.fetchUsers(username: testUsername, page: 00) {
+            XCTAssertNotNil(self.systemUnderTest.emptyStateView)
 
-        systemUnderTest.fetchUsers(username: testUsername, page: 1) {
             XCTAssertEqual(self.systemUnderTest.usersCollectionView.backgroundView, self.systemUnderTest.emptyStateView)
         }
     }

@@ -4,6 +4,7 @@ disabled_rules:
   - no_grouping_extension
   - private_outlet
   - unused_optional_binding
+  - todo # next to enable again
 opt_in_rules:
   - array_init
   - attributes
@@ -32,7 +33,6 @@ opt_in_rules:
   - operator_usage_whitespace
   - overridden_super_call
   - pattern_matching_keywords
-  - private_outlet
   - prohibited_super_call
   - quick_discouraged_call
   - quick_discouraged_focused_test
