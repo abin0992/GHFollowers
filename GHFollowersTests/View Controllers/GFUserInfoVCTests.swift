@@ -22,6 +22,7 @@ class GFUserInfoVCTests: XCTestCase {
         systemUnderTest = GFUserInfoViewController.instantiate()
         systemUnderTest.username = testUsername
         systemUnderTest.loadViewIfNeeded()
+        systemUnderTest.viewModel.viewDidLoad()
 
         try super.setUpWithError()
     }
@@ -85,24 +86,5 @@ class GFUserInfoVCTests: XCTestCase {
         }
 
         XCTAssertTrue(actions.contains("profileButtonAction:"))
-    }
-
-    func test_GighubProfileButton_WhenTapped_SFSafariVCIsPresented() {
-        let navigationController: UINavigationController = UINavigationController(rootViewController: systemUnderTest)
-        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = navigationController
-
-        systemUnderTest.loadViewIfNeeded()
-
-        systemUnderTest.githubProfileButton.sendActions(for: .touchUpInside)
-
-        let safariExpectation: XCTestExpectation = expectation(description: "show SFSafariVC")
-
-        if let _ = navigationController.viewControllers.last?.presentedViewController as? SFSafariViewController {
-            safariExpectation.fulfill()
-        } else {
-            XCTFail("SFSafariViewController was not presented")
-            return
-        }
-        waitForExpectations(timeout: 5.0, handler: nil)
     }
 }

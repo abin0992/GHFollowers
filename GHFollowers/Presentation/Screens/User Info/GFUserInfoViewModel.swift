@@ -15,7 +15,7 @@ class GFUserInfoViewModel {
     @Published private(set) var errorMessage: String = ""
 
     var feedService: GFService = GFService()
-    var username: String!
+    var username: String = ""
 
     func viewDidLoad() {
         getUserInfo()

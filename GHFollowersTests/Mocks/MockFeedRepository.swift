@@ -11,7 +11,7 @@ import Foundation
 
 class MockFeedRepository: FeedServiceFetchable {
 
-    var isFetchUserListSucceeded: Bool = false
+    var isFetchUserListSucceeded: Bool = true
     var isEmptyUserListReturned: Bool = false
     var isFetchFollowerListSucceeded: Bool = false
     var isEmptyFollowerListSucceeded: Bool = false

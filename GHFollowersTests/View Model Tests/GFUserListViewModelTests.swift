@@ -21,7 +21,6 @@ class GFUserListViewModelTests: XCTestCase {
         sut = GFUserListViewModel(feedRepository: mocks)
         sut.username = testUsername
         XCTAssertNotNil(sut)
-        sut.viewDidLoad()
         try super.setUpWithError()
     }
 
@@ -31,12 +30,9 @@ class GFUserListViewModelTests: XCTestCase {
 
     func test_FetchUserListResultSucceed() {
         mocks.isFetchUserListSucceeded = true
-        let expect: XCTestExpectation = XCTestExpectation(description: "Fetch successfully - user list")
         sut.fetchUsers(username: testUsername, page: 00) {
-            expect.fulfill()
             XCTAssertNotNil(self.sut.users)
         }
-        wait(for: [expect], timeout: 0.1)
         XCTAssertEqual(self.sut.users.count, 1)
     }
 
@@ -54,12 +50,9 @@ class GFUserListViewModelTests: XCTestCase {
 
     func test_FetchUsersListResultFailed() {
         mocks.isFetchUserListSucceeded = false
-        let expect: XCTestExpectation = XCTestExpectation(description: "Fetch user list - error return")
         sut.fetchUsers(username: testUsername, page: 00) {
-            expect.fulfill()
             XCTAssertNotNil(self.sut.errorMessage)
         }
-        wait(for: [expect], timeout: 0.1)
     }
 
 }

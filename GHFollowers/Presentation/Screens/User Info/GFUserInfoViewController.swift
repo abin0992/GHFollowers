@@ -124,7 +124,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
 
 // MARK: - Tableview row height
 
-extension GFUserInfoViewController: UITableViewDataSource {
+extension GFUserInfoViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if viewModel.isLoading {
             return 0
