@@ -1,14 +1,14 @@
 [![YourActionName Actions Status](https://github.com/abin0992/GHFollowers/workflows/CI/badge.svg)](https://github.com/abin0992/GHFollowers/actions) [![Build Status](https://travis-ci.com/abin0992/GHFollowers.svg?branch=CI-integration)](https://travis-ci.com/abin0992/GHFollowers)
 # GHFollowers
 GHFollowers is an iOS app that allows the user to search for github users.
-## MVVM-C architectire is used
+## MVVM-C architecture is used
 - Combine framework is used for binding between view and viewmodel.
 - Navigation is handled by using Coordinators
-## Project developed with product oriented approach 
-This Project only has the UI and business logic for this project. The network API calls and models are managed in a different apple framework project - [FeedEngine](https://github.com/abin0992/FeedEngine). This approach is primary step in app modularisation which helps for serperation of responsibilities. The advantages of this approach are
-- Its easy to make a seperate iPad app / watch app / macOS app since this framework can be integrated and many functions and business logic becomes readily available to use.
+## Project developed with product-oriented approach 
+This Project only has the UI and business logic for this project. The network API calls and models are managed in a different apple framework project - [FeedEngine](https://github.com/abin0992/FeedEngine). This approach is the primary step in app modularisation which helps for the separation of responsibilities. The advantages of this approach are
+- Its easy to make a separate iPad app /tvOS app / watchOS app / macOS app since this framework can be integrated and many functions and business logic becomes readily available to use.
 - Ease to add new features and maintainability
-- Serperation of responsibilities
+- Serparation of responsibilities
 
 #### Project Features
 
