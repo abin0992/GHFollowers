@@ -11,7 +11,6 @@ This Project only has the UI and business logic for this project. The network AP
 - Serparation of responsibilities
 
 #### Project Features
-
   - Seach for user, see list of users and user info screen
   - Adds pagination for loading user or follower list
   - Makes use of new APIs like [UICollectionViewDiffableDataSource](https://developer.apple.com/documentation/uikit/uicollectionviewdiffabledatasource), [Result type](https://developer.apple.com/documentation/swift/result)
@@ -24,12 +23,12 @@ This Project only has the UI and business logic for this project. The network AP
 
 ### Installation
 The project comes ready to test. 
-Clone and run on your machine. No additional steps required
+Clone and run on your machine. No additional steps required.
 
   ```bash
   git clone https://github.com/abin0992/GHFollowers.git
   ```
-  GHFollowers do not have any 3rd party dependencies! The only dependency is our internal framework - [FeedEngine](https://github.com/abin0992/FeedEngine). Its integrated through Swift Package Manager. 
+  GHFollowers do not have any 3rd party dependencies! The only dependency is our internal framework - [FeedEngine](https://github.com/abin0992/FeedEngine). Its integrated through Swift Package Manager.
 ### Screenshots
 ##### Dark Mode
 ![alt text](https://github.com/abin0992/GHFollowers/blob/CI-integration/.screenshots/darkMode.png?raw=true)
