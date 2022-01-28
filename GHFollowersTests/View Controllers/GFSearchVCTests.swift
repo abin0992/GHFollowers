@@ -20,22 +20,21 @@ class GFSearchVCTests: XCTestCase {
     override func setUpWithError() throws {
         super.setUp()
 
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        systemUnderTest = storyboard
-          .instantiateViewController(
-            withIdentifier: GFSearchViewController.className) as? GFSearchViewController
+        systemUnderTest = GFSearchViewController.instantiate()
 
         navigationController = UINavigationController(rootViewController: systemUnderTest)
         UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = navigationController
 
         systemUnderTest.loadViewIfNeeded()
+        try super.setUpWithError()
+
     }
 
     override func tearDownWithError() throws {
         systemUnderTest = nil
         navigationController = nil
 
-        super.tearDown()
+        try super.tearDownWithError()
     }
 
     // MARK: - Tests
@@ -61,47 +60,36 @@ class GFSearchVCTests: XCTestCase {
         XCTAssertTrue(actions.contains("searchButtonAction:"))
     }
 
-    func test_GetFollwersButton_WhenTapped_FollwerListIsPushed() {
-        systemUnderTest.usernameTextField.text = "testUser"
-        systemUnderTest.searchButton.sendActions(for: .touchUpInside)
-        RunLoop.current.run(until: Date())
+    func test_Controller_ShowsAlert_ForEmptyUsername() {
 
-        guard let _ = navigationController.topViewController as? GFUserListViewController else {
-            XCTFail("Follower list view controller not pushed")
-            return
+        systemUnderTest.usernameTextField.text = ""
+            // Tap get follwers button when TextFields have empty state
+        systemUnderTest.searchButton.sendActions(for: .touchUpInside)
+
+        let alertExpectation: XCTestExpectation = expectation(description: "alert")
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+
+            guard let alertController: GFAlertViewController = self.navigationController.viewControllers.last?.presentedViewController as? GFAlertViewController else {
+                XCTFail("GFAlertViewController was not presented")
+                return
+            }
+
+            XCTAssertNotNil(alertController, "GFAlertViewController was not presented")
+
+            let expectedAlertTitle: String = Alert.emptyUsernameTitle
+            let actualAlertTitle: String = alertController.titleLabel.text ?? "Test Title"
+            XCTAssertEqual(expectedAlertTitle, actualAlertTitle)
+
+            let expectedAlertMessage: String = Alert.emptyUsernameMessage
+            let actualAlertMessage: String = alertController.messageLabel.text ?? "Test Message"
+            XCTAssertEqual(expectedAlertMessage, actualAlertMessage)
+
+            let expectedActionTitle: String = Alert.okButtonLabel
+            let actualActionTitle: String = alertController.actionButton.titleLabel?.text ?? "Test Botton"
+            XCTAssertEqual(expectedActionTitle, actualActionTitle)
+
+            alertExpectation.fulfill()
         }
-    }
-//
-//    func test_Controller_ShowsAlert_ForEmptyUsername() {
-//
-//        systemUnderTest.usernameTextField.text = ""
-//            // Tap get follwers button when TextFields have empty state
-//        systemUnderTest.getFollowersButton.sendActions(for: .touchUpInside)
-//
-//        let alertExpectation: XCTestExpectation = expectation(description: "alert")
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-//
-//            guard let alertController: GFAlertViewController = self.navigationController.viewControllers.last?.presentedViewController as? GFAlertViewController else {
-//                XCTFail("GFAlertViewController was not presented")
-//                return
-//            }
-//
-//            XCTAssertNotNil(alertController, "GFAlertViewController was not presented")
-//
-//            let expectedAlertTitle: String = Alert.emptyUsernameTitle
-//            let actualAlertTitle: String = alertController.titleLabel.text ?? "Test Title"
-//            XCTAssertEqual(expectedAlertTitle, actualAlertTitle)
-//
-//            let expectedAlertMessage: String = Alert.emptyUsernameMessage
-//            let actualAlertMessage: String = alertController.messageLabel.text ?? "Test Message"
-//            XCTAssertEqual(expectedAlertMessage, actualAlertMessage)
-//
-//            let expectedActionTitle: String = Alert.okButtonLabel
-//            let actualActionTitle: String = alertController.actionButton.titleLabel?.text ?? "Test Botton"
-//            XCTAssertEqual(expectedActionTitle, actualActionTitle)
-//
-//            alertExpectation.fulfill()
-//        }
-//        waitForExpectations(timeout: 5.0, handler: nil)
-//        }
+        waitForExpectations(timeout: 5.0, handler: nil)
+        }
 }

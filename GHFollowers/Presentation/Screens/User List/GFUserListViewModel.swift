@@ -21,8 +21,11 @@ class GFUserListViewModel {
     var hasMoreUsers: Bool = true
     var isSearching: Bool = false
     var isFollwersList: Bool = false
+    let feedRepository: FeedServiceFetchable!
 
-    private let feedService: GFService = GFService()
+    init(feedRepository: FeedServiceFetchable = FeedRepository()) {
+        self.feedRepository = feedRepository
+    }
 
     func viewDidLoad() {
         fetchUsers(username: username, page: page)
@@ -32,18 +35,17 @@ class GFUserListViewModel {
 
     typealias OptionalCompletionClosure = (() -> Void)?
 
-    private func fetchUsers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
+    func fetchUsers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
 
         isLoading = true
 
-        feedService.fetchUsers(for: username, page: page) { [weak self] result in
+        feedRepository.fetchUsers(username, page: page) { [weak self] result in
             switch result {
             case .success(let users):
                 self?.updateUI(with: users)
             case .failure(let error):
                 self?.errorMessage = error.description
             }
-
             self?.isLoading = false
         }
     }
@@ -51,7 +53,7 @@ class GFUserListViewModel {
     func fetchFollowers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
         isLoading = true
 
-        feedService.fetchFollowers(for: username, page: page) { [weak self] result in
+        feedRepository.fetchFollowers(username, page: page) { [weak self] result in
             switch result {
             case .success(let followers):
                 self?.updateUI(with: followers)

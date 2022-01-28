@@ -35,8 +35,10 @@ extension UIViewController {
 
     func dismissLoadingView() {
         DispatchQueue.main.async {
-            containerView.removeFromSuperview()
-            containerView = nil
+            if containerView != nil {
+                containerView.removeFromSuperview()
+                containerView = nil
+            }
         }
     }
 }

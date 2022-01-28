@@ -45,8 +45,8 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
         doneButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoDoneButton.rawValue
 
         configureTableView()
-        viewModel.viewDidLoad()
         bindViewModel()
+        viewModel.viewDidLoad()
     }
 
     private func bindViewModel() {
@@ -64,7 +64,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
         viewModel.$user
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
-                if let userInfo = userInfo {
+                if let userInfo: UserDetail = userInfo {
                     self?.configureUIElements(with: userInfo)
                 }
             }
@@ -124,7 +124,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
 
 // MARK: - Tableview row height
 
-extension GFUserInfoViewController {
+extension GFUserInfoViewController: UITableViewDataSource {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if viewModel.isLoading {
             return 0

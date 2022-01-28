@@ -39,6 +39,11 @@
                BlueprintName = "GHFollowersTests"
                ReferencedContainer = "container:GHFollowers.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "GFUserInfoVCTests/test_OutletsShouldBeConnected()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
