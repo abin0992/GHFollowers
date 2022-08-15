@@ -8,7 +8,6 @@
 import XCTest
 
 class GHFollowersListVCUITests: XCUITestBase {
-
     // MARK: - UI Tests
 
     func test_FollowerListDisplaysData() {

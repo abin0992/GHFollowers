@@ -8,13 +8,12 @@
 import XCTest
 
 class GFUserInfoVCUITests: XCUITestBase {
-
     // MARK: - UI Tests
 
     func test_NavigationToGithubProfile() {
         navigateToUserInfoScreen()
         app.buttons[AccessibilityIdentifier.userInfoGithubProfileButton.rawValue].staticTexts["Github Profile"].tap()
-        let urlElement: XCUIElement = app/*@START_MENU_TOKEN@*/.otherElements["URL"]/*[[".otherElements[\"BrowserView?WebViewProcessID=24160\"]",".otherElements[\"TopBrowserBar\"]",".buttons[\"Address\"]",".otherElements[\"Address\"]",".otherElements[\"URL\"]",".buttons[\"URL\"]"],[[[-1,4],[-1,3],[-1,5,3],[-1,2,3],[-1,1,2],[-1,0,1]],[[-1,4],[-1,3],[-1,5,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,5,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/
+        let urlElement: XCUIElement = app/*@START_MENU_TOKEN@*/ .otherElements["URL"]/*[[".otherElements[\"BrowserView?WebViewProcessID=24160\"]",".otherElements[\"TopBrowserBar\"]",".buttons[\"Address\"]",".otherElements[\"Address\"]",".otherElements[\"URL\"]",".buttons[\"URL\"]"],[[[-1,4],[-1,3],[-1,5,3],[-1,2,3],[-1,1,2],[-1,0,1]],[[-1,4],[-1,3],[-1,5,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,5,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/
         XCTAssertNotNil(urlElement)
     }
 

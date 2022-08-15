@@ -8,13 +8,11 @@
 import XCTest
 
 class GHSearchVCUITests: XCUITestBase {
-
-    static let username: String = "twostraws"
+    static let username = "twostraws"
 
     // MARK: - UI Tests
 
     func test_FollowerListScreenIsPushed() {
-
         // 1. Loads search screen
         check_SearchScreen_IsShown()
 
@@ -43,7 +41,6 @@ class GHSearchVCUITests: XCUITestBase {
     }
 
     func enterUserName_AndTap_GetFollwerButton() {
-
         let usernameTextField: XCUIElement = app.textFields[AccessibilityIdentifier.usernameTextField.rawValue]
 
         usernameTextField.tap()

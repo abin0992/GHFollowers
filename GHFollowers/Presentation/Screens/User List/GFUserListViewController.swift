@@ -9,17 +9,18 @@ import Combine
 import FeedEngine
 import UIKit
 
-class GFUserListViewController: UIViewController, Storyboardable, AlertPresentable, Loadable {
+// MARK: - GFUserListViewController
 
-    @IBOutlet weak var usersCollectionView: UICollectionView!
+class GFUserListViewController: UIViewController, Storyboardable, AlertPresentable, Loadable {
+    @IBOutlet var usersCollectionView: UICollectionView!
 
     var emptyStateView: UIView?
-    let displayUserInfoSegueIdentifier: String = "showUserInfoSegue"
-    let reuseIdentifier: String = "userCell"
+    let displayUserInfoSegueIdentifier = "showUserInfoSegue"
+    let reuseIdentifier = "userCell"
     lazy var dataSource: DataSource = makeDataSource()
 
     lazy var viewModel: GFUserListViewModel = {
-        let viewModel: GFUserListViewModel = GFUserListViewModel()
+        let viewModel = GFUserListViewModel()
         return viewModel
     }()
 
@@ -28,6 +29,7 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
     var showUserInfo: ((String) -> Void)?
 
     // MARK: - Value Types
+
     typealias DataSource = UICollectionViewDiffableDataSource<Section, User>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, User>
 
@@ -74,7 +76,8 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
                         title: Alert.errorTitle,
                         message: message,
                         buttonTitle: Alert.okButtonLabel,
-                        presentingView: self)
+                        presentingView: self
+                    )
                 }
             }
             .store(in: &subscriptions)
@@ -96,11 +99,10 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
                 self?.updateData(on: usersList)
             }
             .store(in: &subscriptions)
-
     }
 
     private func configureNavigationBar() {
-        self.title = viewModel.username
+        title = viewModel.username
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -112,13 +114,13 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
     }
 
     private func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
-        let width: CGFloat = self.view.bounds.width
+        let width: CGFloat = view.bounds.width
         let padding: CGFloat = 12
         let minimumItemSpacing: CGFloat = 10
         let availableWidth: CGFloat = width - (padding * 2) - (minimumItemSpacing * 2)
         let itemWidth: CGFloat = availableWidth / 3
 
-        let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 40)
 
@@ -126,7 +128,7 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
     }
 
     private func makeDataSource() -> DataSource {
-        let dataSource: DataSource = DataSource(collectionView: usersCollectionView) { collectionView, indexPath, user -> UICollectionViewCell? in
+        let dataSource = DataSource(collectionView: usersCollectionView) { collectionView, indexPath, user -> UICollectionViewCell? in
             let cell: GFUserCell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as? GFUserCell ?? GFUserCell()
             cell.set(user: user)
             return cell
@@ -144,22 +146,21 @@ class GFUserListViewController: UIViewController, Storyboardable, AlertPresentab
     }
 }
 
-// MARK: - Collection View Delegate
+// MARK: UICollectionViewDelegate
 
 extension GFUserListViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.accessibilityIdentifier = AccessibilityIdentifier.userCell.rawValue
         viewModel.loadMoreUsers(indexPath)
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user: User = viewModel.users[indexPath.item]
-        self.showUserInfo?(user.login)
+        showUserInfo?(user.login)
     }
 }
 
-// MARK: User info screen delegate
+// MARK: UserInfoVCDelegate
 
 extension GFUserListViewController: UserInfoVCDelegate {
     func didRequestUsers(for username: String) {

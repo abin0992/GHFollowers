@@ -10,17 +10,16 @@ import FeedEngine
 import Foundation
 
 class GFUserListViewModel {
-
-    @Published private(set) var isLoading: Bool = false
-    @Published private(set) var errorMessage: String = ""
-    @Published private(set) var noUsersState: Bool = true
+    @Published private(set) var isLoading = false
+    @Published private(set) var errorMessage = ""
+    @Published private(set) var noUsersState = true
     @Published var users: [User] = []
 
     var username: String!
-    var page: Int = 1
-    var hasMoreUsers: Bool = true
-    var isSearching: Bool = false
-    var isFollwersList: Bool = false
+    var page = 1
+    var hasMoreUsers = true
+    var isSearching = false
+    var isFollwersList = false
     let feedRepository: FeedServiceFetchable!
 
     init(feedRepository: FeedServiceFetchable = FeedRepository()) {
@@ -35,30 +34,29 @@ class GFUserListViewModel {
 
     typealias OptionalCompletionClosure = (() -> Void)?
 
-    func fetchUsers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
-
+    func fetchUsers(username: String, page: Int, completion _: OptionalCompletionClosure = nil) {
         isLoading = true
 
         feedRepository.fetchUsers(username, page: page) { [weak self] result in
             switch result {
-            case .success(let users):
+            case let .success(users):
                 self?.updateUI(with: users)
-            case .failure(let error):
+            case let .failure(error):
                 self?.errorMessage = error.description
             }
             self?.isLoading = false
         }
     }
 
-    func fetchFollowers(username: String, page: Int, completion: OptionalCompletionClosure = nil) {
+    func fetchFollowers(username: String, page: Int, completion _: OptionalCompletionClosure = nil) {
         isLoading = true
 
         feedRepository.fetchFollowers(username, page: page) { [weak self] result in
             switch result {
-            case .success(let followers):
+            case let .success(followers):
                 self?.updateUI(with: followers)
 
-            case .failure(let error):
+            case let .failure(error):
                 self?.errorMessage = error.description
             }
             self?.isLoading = false
@@ -66,7 +64,9 @@ class GFUserListViewModel {
     }
 
     private func updateUI(with users: [User]) {
-        if users.count < 100 { hasMoreUsers = false }
+        if users.count < 100 {
+            hasMoreUsers = false
+        }
         self.users.append(contentsOf: users)
 
         if !users.isEmpty {

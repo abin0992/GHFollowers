@@ -8,22 +8,26 @@
 import FeedEngine
 import Foundation
 
+// MARK: - FeedServiceFetchable
+
 protocol FeedServiceFetchable {
     func fetchUsers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void)
     func fetchFollowers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void)
 }
 
+// MARK: - FeedRepository
+
 class FeedRepository: FeedServiceFetchable {
     // TODO: The local database fetching should go in here class
 
-    private let feedService: GFService = GFService()
+    private let feedService = GFService()
 
     func fetchUsers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         feedService.fetchUsers(for: username, page: page) { result in
             switch result {
-            case .success(let users):
+            case let .success(users):
                 completion(.success(users))
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }
@@ -32,10 +36,10 @@ class FeedRepository: FeedServiceFetchable {
     func fetchFollowers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         feedService.fetchFollowers(for: username, page: page) { result in
             switch result {
-            case .success(let followers):
+            case let .success(followers):
                 completion(.success(followers))
 
-            case .failure(let error):
+            case let .failure(error):
                 completion(.failure(error))
             }
         }

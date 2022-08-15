@@ -10,7 +10,6 @@
 import XCTest
 
 class GFUserInfoViewModelTests: XCTestCase {
-
     var sut: GFUserInfoViewModel!
     var mocks: MockFeedRepository!
     var testUsers: [User] = []
@@ -34,5 +33,4 @@ class GFUserInfoViewModelTests: XCTestCase {
 //            XCTAssertNotNil(self.sut.user)
 //        }
 //    }
-
 }

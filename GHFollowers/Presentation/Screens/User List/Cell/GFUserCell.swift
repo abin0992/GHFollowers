@@ -9,13 +9,11 @@ import FeedEngine
 import UIKit
 
 class GFUserCell: UICollectionViewCell {
-
-    @IBOutlet weak var avatarImageView: GFAvatarImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet var avatarImageView: GFAvatarImageView!
+    @IBOutlet var usernameLabel: UILabel!
 
     func set(user: User) {
-        avatarImageView.downloadImage(fromURL: user.avatarUrl)
+        avatarImageView.downloadImage(fromURL: user.avatarURL)
         usernameLabel.text = user.login
     }
-
 }

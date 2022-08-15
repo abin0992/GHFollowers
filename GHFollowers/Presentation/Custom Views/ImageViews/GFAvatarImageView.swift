@@ -9,8 +9,7 @@ import FeedEngine
 import UIKit
 
 class GFAvatarImageView: UIImageView {
-
-    private let feedService: GFService = GFService()
+    private let feedService = GFService()
 
     let placeholderImage: UIImage = #imageLiteral(resourceName: "avatar-placeholder")
 

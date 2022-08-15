@@ -10,11 +10,10 @@
 import XCTest
 
 class GFUserListViewModelTests: XCTestCase {
-
     var sut: GFUserListViewModel!
     var mocks: MockFeedRepository!
     var testUsers: [User] = []
-    let testUsername: String = "testUsername"
+    let testUsername = "testUsername"
 
     override func setUpWithError() throws {
         mocks = MockFeedRepository()
@@ -33,14 +32,14 @@ class GFUserListViewModelTests: XCTestCase {
         sut.fetchUsers(username: testUsername, page: 00) {
             XCTAssertNotNil(self.sut.users)
         }
-        XCTAssertEqual(self.sut.users.count, 1)
+        XCTAssertEqual(sut.users.count, 1)
     }
 
     func test_FetchUsersEmptyListResultSucceed() {
         mocks.isFetchUserListSucceeded = true
         mocks.isEmptyUserListReturned = true
-        let expect: XCTestExpectation = XCTestExpectation(description: "Fetch successfully - empty user list")
-        let numberOfUsers: Int = 0
+        let expect = XCTestExpectation(description: "Fetch successfully - empty user list")
+        let numberOfUsers = 0
         sut.fetchUsers(username: testUsername, page: 00) {
             expect.fulfill()
             XCTAssertNotNil(self.sut.users)
@@ -54,5 +53,4 @@ class GFUserListViewModelTests: XCTestCase {
             XCTAssertNotNil(self.sut.errorMessage)
         }
     }
-
 }

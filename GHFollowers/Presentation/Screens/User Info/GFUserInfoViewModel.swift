@@ -9,13 +9,12 @@ import FeedEngine
 import Foundation
 
 class GFUserInfoViewModel {
-
-    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var isLoading = false
     @Published private(set) var user: UserDetail!
-    @Published private(set) var errorMessage: String = ""
+    @Published private(set) var errorMessage = ""
 
-    var feedService: GFService = GFService()
-    var username: String = ""
+    var feedService = GFService()
+    var username = ""
 
     func viewDidLoad() {
         getUserInfo()
@@ -25,14 +24,14 @@ class GFUserInfoViewModel {
 
     typealias OptionalCompletionClosure = (() -> Void)?
 
-    func getUserInfo(completion: OptionalCompletionClosure = nil) {
+    func getUserInfo(completion _: OptionalCompletionClosure = nil) {
         isLoading = true
         feedService.fetchUserInfo(for: username) { [weak self] result in
             self?.isLoading = false
             switch result {
-            case .success(let user):
+            case let .success(user):
                 self?.user = user
-            case .failure(let error):
+            case let .failure(error):
                 self?.errorMessage = error.description
             }
         }

@@ -10,27 +10,29 @@ import FeedEngine
 import SafariServices
 import UIKit
 
-class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPresentable, Loadable {
+// MARK: - GFUserInfoViewController
 
-    @IBOutlet private weak var avatarImageView: GFAvatarImageView!
-    @IBOutlet private weak var usernameLabel: UILabel!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var locationLabel: UILabel!
-    @IBOutlet private weak var bioLabel: UILabel!
-    @IBOutlet private weak var repoCountLabel: UILabel!
-    @IBOutlet private weak var gistCountLabel: UILabel!
-    @IBOutlet private weak var followersCountLabel: UILabel!
-    @IBOutlet private weak var followingCountLabel: UILabel!
-    @IBOutlet private weak var yearLabel: UILabel!
-    @IBOutlet private weak var getFollowersButton: GFButton!
-    @IBOutlet private weak var doneButton: UIBarButtonItem!
-    @IBOutlet private weak var githubProfileButton: GFButton!
+class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPresentable, Loadable {
+    @IBOutlet private var avatarImageView: GFAvatarImageView!
+    @IBOutlet private var usernameLabel: UILabel!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var locationLabel: UILabel!
+    @IBOutlet private var bioLabel: UILabel!
+    @IBOutlet private var repoCountLabel: UILabel!
+    @IBOutlet private var gistCountLabel: UILabel!
+    @IBOutlet private var followersCountLabel: UILabel!
+    @IBOutlet private var followingCountLabel: UILabel!
+    @IBOutlet private var yearLabel: UILabel!
+    @IBOutlet private var getFollowersButton: GFButton!
+    @IBOutlet private var doneButton: UIBarButtonItem!
+    @IBOutlet private var githubProfileButton: GFButton!
 
     var username: String!
     lazy var viewModel: GFUserInfoViewModel = {
-        let viewModel: GFUserInfoViewModel = GFUserInfoViewModel()
+        let viewModel = GFUserInfoViewModel()
         return viewModel
     }()
+
     weak var delegate: UserInfoVCDelegate!
     private var subscriptions: Set<AnyCancellable> = []
 
@@ -78,7 +80,8 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
                         title: Alert.errorTitle,
                         message: message,
                         buttonTitle: Alert.okButtonLabel,
-                        presentingView: self)
+                        presentingView: self
+                    )
                 }
             }
             .store(in: &subscriptions)
@@ -86,37 +89,37 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
 
     // MARK: - Button Actions
 
-    @IBAction func dismissUserInfoViewController(_ sender: Any) {
-        self.dismiss(animated: true)
+    @IBAction func dismissUserInfoViewController(_: Any) {
+        dismiss(animated: true)
     }
 
-    @IBAction func profileButtonAction(_ sender: Any) {
-        guard let url = URL(string: viewModel.user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
+    @IBAction func profileButtonAction(_: Any) {
+        guard let url = URL(string: viewModel.user.htmlURL) else {
+            presentGFAlertOnMainThread(title: Alert.invalidURLTitle, message: Alert.invalidURLMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
             return
         }
 
         presentSafariVC(with: url)
     }
 
-    @IBAction func follwersButtonAction(_ sender: Any) {
+    @IBAction func follwersButtonAction(_: Any) {
         delegate.didRequestUsers(for: viewModel.user.login)
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
 // MARK: - Tableview row height
 
 extension GFUserInfoViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         if viewModel.isLoading {
             return 0
         } else {
-        return UITableView.automaticDimension
+            return UITableView.automaticDimension
         }
     }
 
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
 }
@@ -125,7 +128,7 @@ extension GFUserInfoViewController {
 
 private extension GFUserInfoViewController {
     private func presentSafariVC(with url: URL) {
-        let safariVC: SFSafariViewController = SFSafariViewController(url: url)
+        let safariVC = SFSafariViewController(url: url)
         safariVC.preferredControlTintColor = .systemGreen
         present(safariVC, animated: true)
     }
@@ -136,7 +139,7 @@ private extension GFUserInfoViewController {
 
     private func configureUIElements(with user: UserDetail) {
         tableView.beginUpdates()
-        avatarImageView.downloadImage(fromURL: user.avatarUrl)
+        avatarImageView.downloadImage(fromURL: user.avatarURL)
         usernameLabel.text = user.login
         nameLabel.text = user.name ?? ""
         locationLabel.text = user.location ?? "Global citizen 🌏"
@@ -150,7 +153,8 @@ private extension GFUserInfoViewController {
     }
 }
 
-// MARK: - Custom Protocol
+// MARK: - UserInfoVCDelegate
+
 protocol UserInfoVCDelegate: AnyObject {
     func didRequestUsers(for username: String)
 }
