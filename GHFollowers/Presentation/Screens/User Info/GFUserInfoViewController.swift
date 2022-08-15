@@ -10,21 +10,21 @@ import FeedEngine
 import SafariServices
 import UIKit
 
-class GFUserInfoViewController: UITableViewController, Storyboardable {
+class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPresentable, Loadable {
 
-    @IBOutlet weak var avatarImageView: GFAvatarImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var repoCountLabel: UILabel!
-    @IBOutlet weak var gistCountLabel: UILabel!
-    @IBOutlet weak var followersCountLabel: UILabel!
-    @IBOutlet weak var followingCountLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var getFollowersButton: GFButton!
-    @IBOutlet weak var doneButton: UIBarButtonItem!
-    @IBOutlet weak var githubProfileButton: GFButton!
+    @IBOutlet private weak var avatarImageView: GFAvatarImageView!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var bioLabel: UILabel!
+    @IBOutlet private weak var repoCountLabel: UILabel!
+    @IBOutlet private weak var gistCountLabel: UILabel!
+    @IBOutlet private weak var followersCountLabel: UILabel!
+    @IBOutlet private weak var followingCountLabel: UILabel!
+    @IBOutlet private weak var yearLabel: UILabel!
+    @IBOutlet private weak var getFollowersButton: GFButton!
+    @IBOutlet private weak var doneButton: UIBarButtonItem!
+    @IBOutlet private weak var githubProfileButton: GFButton!
 
     var username: String!
     lazy var viewModel: GFUserInfoViewModel = {
@@ -74,31 +74,14 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] message in
                 if !message.isEmpty {
-                    self?.presentGFAlertOnMainThread(title: Alert.errorTitle, message: message, buttonTitle: Alert.okButtonLabel)
+                    self?.presentGFAlertOnMainThread(
+                        title: Alert.errorTitle,
+                        message: message,
+                        buttonTitle: Alert.okButtonLabel,
+                        presentingView: self)
                 }
             }
             .store(in: &subscriptions)
-    }
-
-    // MARK: - Private functions
-
-    private func configureTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-    }
-
-    func configureUIElements(with user: UserDetail) {
-        tableView.beginUpdates()
-        avatarImageView.downloadImage(fromURL: user.avatarUrl)
-        usernameLabel.text = user.login
-        nameLabel.text = user.name ?? ""
-        locationLabel.text = user.location ?? "Global citizen 🌏"
-        bioLabel.text = user.bio ?? "No bio available"
-        repoCountLabel.text = String(user.publicRepos)
-        gistCountLabel.text = String(user.publicGists)
-        followersCountLabel.text = String(user.followers)
-        followingCountLabel.text = String(user.following)
-        yearLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
-        tableView.endUpdates()
     }
 
     // MARK: - Button Actions
@@ -109,7 +92,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable {
 
     @IBAction func profileButtonAction(_ sender: Any) {
         guard let url = URL(string: viewModel.user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel)
+            presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
             return
         }
 
@@ -135,6 +118,35 @@ extension GFUserInfoViewController {
 
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
+    }
+}
+
+// MARK: - Private functions
+
+private extension GFUserInfoViewController {
+    private func presentSafariVC(with url: URL) {
+        let safariVC: SFSafariViewController = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = .systemGreen
+        present(safariVC, animated: true)
+    }
+
+    private func configureTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+
+    private func configureUIElements(with user: UserDetail) {
+        tableView.beginUpdates()
+        avatarImageView.downloadImage(fromURL: user.avatarUrl)
+        usernameLabel.text = user.login
+        nameLabel.text = user.name ?? ""
+        locationLabel.text = user.location ?? "Global citizen 🌏"
+        bioLabel.text = user.bio ?? "No bio available"
+        repoCountLabel.text = String(user.publicRepos)
+        gistCountLabel.text = String(user.publicGists)
+        followersCountLabel.text = String(user.followers)
+        followingCountLabel.text = String(user.following)
+        yearLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
+        tableView.endUpdates()
     }
 }
 

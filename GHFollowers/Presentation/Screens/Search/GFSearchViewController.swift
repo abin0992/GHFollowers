@@ -7,10 +7,10 @@
 
 import UIKit
 
-class GFSearchViewController: UIViewController, Storyboardable {
+class GFSearchViewController: UIViewController, Storyboardable, AlertPresentable {
 
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var searchButton: GFButton!
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var searchButton: GFButton!
 
     var searchUser: ((String) -> Void)?
 
@@ -36,7 +36,23 @@ class GFSearchViewController: UIViewController, Storyboardable {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    // MARK: Private functions
+    @IBAction func searchButtonAction(_ sender: Any) {
+        pushUserListVC()
+    }
+}
+
+// MARK: - Text Field Delegate
+
+extension GFSearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        pushUserListVC()
+        return true
+    }
+}
+
+// MARK: Private functions
+
+private extension GFSearchViewController {
 
     private func configureUI() {
         view.accessibilityIdentifier = AccessibilityIdentifier.searchView.rawValue
@@ -56,7 +72,7 @@ class GFSearchViewController: UIViewController, Storyboardable {
 
     private func pushUserListVC() {
         guard isUsernameEntered else {
-            presentGFAlertOnMainThread(title: Alert.emptyUsernameTitle, message: Alert.emptyUsernameMessage, buttonTitle: Alert.okButtonLabel)
+            presentGFAlertOnMainThread(title: Alert.emptyUsernameTitle, message: Alert.emptyUsernameMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
             return
         }
 
@@ -64,18 +80,5 @@ class GFSearchViewController: UIViewController, Storyboardable {
         if let username: String = usernameTextField.text {
             self.searchUser?(username)
         }
-    }
-
-    @IBAction func searchButtonAction(_ sender: Any) {
-        pushUserListVC()
-    }
-}
-
-// MARK: - Text Field Delegate
-
-extension GFSearchViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pushUserListVC()
-        return true
     }
 }

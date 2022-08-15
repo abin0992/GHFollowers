@@ -4,6 +4,7 @@ disabled_rules:
   - no_grouping_extension
   - private_outlet
   - unused_optional_binding
+  - no_extension_access_modifier
   - todo # next to enable again
 opt_in_rules:
   - array_init

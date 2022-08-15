@@ -1,5 +1,5 @@
 //
-//  UIViewController+LoadingView.swift
+//  Loadable.swift
 //  GHFollowers
 //
 //  Created by Abin Baby on 29/12/20.
@@ -9,7 +9,12 @@ import UIKit
 
 private var containerView: UIView!
 
-extension UIViewController {
+protocol Loadable {
+    func showLoadingView()
+    func dismissLoadingView()
+}
+
+extension Loadable where Self: UIViewController {
 
     func showLoadingView() {
         containerView = UIView(frame: view.bounds)

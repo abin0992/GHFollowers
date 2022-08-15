@@ -9,7 +9,7 @@ import Combine
 import FeedEngine
 import UIKit
 
-class GFUserListViewController: UIViewController, Storyboardable {
+class GFUserListViewController: UIViewController, Storyboardable, AlertPresentable, Loadable {
 
     @IBOutlet weak var usersCollectionView: UICollectionView!
 
@@ -70,7 +70,11 @@ class GFUserListViewController: UIViewController, Storyboardable {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] message in
                 if !message.isEmpty {
-                    self?.presentGFAlertOnMainThread(title: Alert.errorTitle, message: message, buttonTitle: Alert.okButtonLabel)
+                    self?.presentGFAlertOnMainThread(
+                        title: Alert.errorTitle,
+                        message: message,
+                        buttonTitle: Alert.okButtonLabel,
+                        presentingView: self)
                 }
             }
             .store(in: &subscriptions)
