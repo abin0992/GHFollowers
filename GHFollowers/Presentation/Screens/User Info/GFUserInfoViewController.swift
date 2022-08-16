@@ -91,7 +91,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
     }
 
     @IBAction func profileButtonAction(_ sender: Any) {
-        guard let url = URL(string: viewModel.user.htmlUrl) else {
+        guard let url = URL(string: viewModel.user.htmlURL) else {
             presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
             return
         }
@@ -136,7 +136,7 @@ private extension GFUserInfoViewController {
 
     private func configureUIElements(with user: UserDetail) {
         tableView.beginUpdates()
-        avatarImageView.downloadImage(fromURL: user.avatarUrl)
+        avatarImageView.downloadImage(fromURL: user.avatarURL)
         usernameLabel.text = user.login
         nameLabel.text = user.name ?? ""
         locationLabel.text = user.location ?? "Global citizen 🌏"

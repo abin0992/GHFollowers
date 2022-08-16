@@ -14,7 +14,7 @@ class GFUserCell: UICollectionViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
 
     func set(user: User) {
-        avatarImageView.downloadImage(fromURL: user.avatarUrl)
+        avatarImageView.downloadImage(fromURL: user.avatarURL)
         usernameLabel.text = user.login
     }
 

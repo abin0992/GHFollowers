@@ -424,7 +424,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 86A3DF1A25994ACD000B0218 /* Build configuration list for PBXNativeTarget "GHFollowers" */;
 			buildPhases = (
-				164E2DFB28AAD84900054C45 /* SwiftFormat */,
 				86A3DEEC25994ACC000B0218 /* Sources */,
 				86A3DEED25994ACC000B0218 /* Frameworks */,
 				86A3DEEE25994ACC000B0218 /* Resources */,
@@ -553,24 +552,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		164E2DFB28AAD84900054C45 /* SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftFormat;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n#swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswift run -c release swiftformat \"$SRCROOT\"\n";
-		};
 		86A3DF2625994BA2000B0218 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
