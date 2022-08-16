@@ -8,6 +8,7 @@
 import UIKit
 
 class GFEmptyStateViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }

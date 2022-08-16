@@ -7,11 +7,10 @@
 
 import UIKit
 
-// MARK: - GFSearchViewController
-
 class GFSearchViewController: UIViewController, Storyboardable, AlertPresentable {
-    @IBOutlet private var usernameTextField: UITextField!
-    @IBOutlet private var searchButton: GFButton!
+
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var searchButton: GFButton!
 
     var searchUser: ((String) -> Void)?
 
@@ -37,15 +36,15 @@ class GFSearchViewController: UIViewController, Storyboardable, AlertPresentable
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    @IBAction func searchButtonAction(_: Any) {
+    @IBAction func searchButtonAction(_ sender: Any) {
         pushUserListVC()
     }
 }
 
-// MARK: UITextFieldDelegate
+// MARK: - Text Field Delegate
 
 extension GFSearchViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         pushUserListVC()
         return true
     }
@@ -54,6 +53,7 @@ extension GFSearchViewController: UITextFieldDelegate {
 // MARK: Private functions
 
 private extension GFSearchViewController {
+
     private func configureUI() {
         view.accessibilityIdentifier = AccessibilityIdentifier.searchView.rawValue
         usernameTextField.accessibilityIdentifier = AccessibilityIdentifier.usernameTextField.rawValue
@@ -66,24 +66,19 @@ private extension GFSearchViewController {
     }
 
     private func setUpDismissKeyboardTapGesture() {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
 
     private func pushUserListVC() {
         guard isUsernameEntered else {
-            presentGFAlertOnMainThread(
-                title: Alert.emptyUsernameTitle,
-                message: Alert.emptyUsernameMessage,
-                buttonTitle: Alert.okButtonLabel,
-                presentingView: self
-            )
+            presentGFAlertOnMainThread(title: Alert.emptyUsernameTitle, message: Alert.emptyUsernameMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
             return
         }
 
         usernameTextField.resignFirstResponder()
         if let username: String = usernameTextField.text {
-            searchUser?(username)
+            self.searchUser?(username)
         }
     }
 }

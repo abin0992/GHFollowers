@@ -9,6 +9,7 @@
 import XCTest
 
 class GFSearchVCTests: XCTestCase {
+
     // MARK: - Subject under test
 
     var systemUnderTest: GFSearchViewController!
@@ -26,6 +27,7 @@ class GFSearchVCTests: XCTestCase {
 
         systemUnderTest.loadViewIfNeeded()
         try super.setUpWithError()
+
     }
 
     override func tearDownWithError() throws {
@@ -59,12 +61,14 @@ class GFSearchVCTests: XCTestCase {
     }
 
     func test_Controller_ShowsAlert_ForEmptyUsername() {
+
         systemUnderTest.usernameTextField.text = ""
-        // Tap get follwers button when TextFields have empty state
+            // Tap get follwers button when TextFields have empty state
         systemUnderTest.searchButton.sendActions(for: .touchUpInside)
 
         let alertExpectation: XCTestExpectation = expectation(description: "alert")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+
             guard let alertController: GFAlertViewController = self.navigationController.viewControllers.last?.presentedViewController as? GFAlertViewController else {
                 XCTFail("GFAlertViewController was not presented")
                 return
@@ -87,5 +91,5 @@ class GFSearchVCTests: XCTestCase {
             alertExpectation.fulfill()
         }
         waitForExpectations(timeout: 5.0, handler: nil)
-    }
+        }
 }

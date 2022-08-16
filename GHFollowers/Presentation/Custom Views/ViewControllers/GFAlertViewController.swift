@@ -8,10 +8,11 @@
 import UIKit
 
 class GFAlertViewController: UIViewController {
-    let containerView = GFAlertContainerView()
-    let titleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel = GFBodyLabel(textAlignment: .center)
-    let actionButton = GFButton(backgroundColor: .systemPink, title: "Ok")
+
+    let containerView: GFAlertContainerView = GFAlertContainerView()
+    let titleLabel: GFTitleLabel = GFTitleLabel(textAlignment: .center, fontSize: 20)
+    let messageLabel: GFBodyLabel = GFBodyLabel(textAlignment: .center)
+    let actionButton: GFButton = GFButton(backgroundColor: .systemPink, title: "Ok")
 
     var alertTitle: String?
     var message: String?
@@ -21,21 +22,20 @@ class GFAlertViewController: UIViewController {
 
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        alertTitle = title
+        self.alertTitle = title
         self.message = message
         self.buttonTitle = buttonTitle
     }
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
-        view.addSubviews(containerView, titleLabel, actionButton, messageLabel)
-        view.accessibilityIdentifier = AccessibilityIdentifier.gfAlertView.rawValue
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        self.view.addSubviews(containerView, titleLabel, actionButton, messageLabel)
+        self.view.accessibilityIdentifier = AccessibilityIdentifier.gfAlertView.rawValue
 
         configureContainerView()
         configureTitleLabel()

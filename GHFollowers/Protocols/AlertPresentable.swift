@@ -7,32 +7,19 @@
 
 import UIKit
 
-// MARK: - AlertPresentable
-
 protocol AlertPresentable {
-    func presentGFAlertOnMainThread(
-        title: String,
-        message: String,
-        buttonTitle: String,
-        presentingView: UIViewController?
-    )
+    func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String, presentingView: UIViewController?)
 }
 
 extension AlertPresentable where Self: UIViewController {
-    func presentGFAlertOnMainThread(
-        title: String,
-        message: String,
-        buttonTitle: String,
-        presentingView: UIViewController?
-    ) {
+    func presentGFAlertOnMainThread(title: String, message: String, buttonTitle: String, presentingView: UIViewController?) {
         DispatchQueue.main.async {
-            let alertVC = GFAlertViewController(
+            let alertVC: GFAlertViewController = GFAlertViewController(
                 title: title,
                 message: message,
-                buttonTitle: buttonTitle
-            )
-            alertVC.modalPresentationStyle = .overFullScreen
-            alertVC.modalTransitionStyle = .crossDissolve
+                buttonTitle: buttonTitle)
+            alertVC.modalPresentationStyle  = .overFullScreen
+            alertVC.modalTransitionStyle    = .crossDissolve
             if let presentingVc: UIViewController = presentingView {
                 presentingVc.present(alertVC, animated: true)
             }

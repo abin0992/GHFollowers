@@ -8,9 +8,10 @@
 import UIKit
 
 class AppCoordinator: Coordinator {
+
     // MARK: - Properties
 
-    private var navigationController = UINavigationController()
+    private var navigationController: UINavigationController = UINavigationController()
     private var presentingViewController: UIViewController?
 
     // MARK: - Public API
@@ -27,7 +28,7 @@ class AppCoordinator: Coordinator {
     }
 
     private func showSearchView() {
-        let searchViewController = GFSearchViewController.instantiate()
+        let searchViewController: GFSearchViewController = GFSearchViewController.instantiate()
         searchViewController.searchUser = { [weak self] username in
             self?.showSearchResults(username)
         }
@@ -35,7 +36,7 @@ class AppCoordinator: Coordinator {
     }
 
     private func showSearchResults(_ username: String) {
-        let userListViewController = GFUserListViewController.instantiate()
+        let userListViewController: GFUserListViewController = GFUserListViewController.instantiate()
         userListViewController.viewModel.username = username
         userListViewController.showUserInfo = { [weak self] username in
             self?.showUserInfo(for: username, on: userListViewController)
@@ -45,7 +46,7 @@ class AppCoordinator: Coordinator {
     }
 
     private func showUserInfo(for username: String, on userList: GFUserListViewController) {
-        let userInfoViewController = GFUserInfoViewController.instantiate()
+        let userInfoViewController: GFUserInfoViewController = GFUserInfoViewController.instantiate()
         userInfoViewController.username = username
         userInfoViewController.delegate = userList
         userInfoViewController.viewModel.username = username

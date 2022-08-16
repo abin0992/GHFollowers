@@ -6,7 +6,6 @@ disabled_rules:
   - unused_optional_binding
   - no_extension_access_modifier
   - todo # next to enable again
-  - opening_brace
 opt_in_rules:
   - array_init
   - attributes
@@ -16,6 +15,7 @@ opt_in_rules:
   - contains_over_first_not_nil
   - empty_count
   - explicit_init
+  - explicit_type_interface
   - extension_access_modifier
   - fatal_error_message
   - first_where
@@ -47,6 +47,8 @@ opt_in_rules:
   - trailing_closure
   - unneeded_parentheses_in_closure_argument
   - vertical_parameter_alignment_on_call
+private_outlet:
+  allow_private_set: true
 excluded:
   - Pods
   - R.generated.swift

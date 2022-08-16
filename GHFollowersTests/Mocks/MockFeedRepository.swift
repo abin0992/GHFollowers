@@ -10,13 +10,14 @@ import Foundation
 @testable import GHFollowers
 
 class MockFeedRepository: FeedServiceFetchable {
-    var isFetchUserListSucceeded = true
-    var isEmptyUserListReturned = false
-    var isFetchFollowerListSucceeded = false
-    var isEmptyFollowerListSucceeded = false
-    let testUser = User(identifier: "test", login: "testLogin", avatarURL: "www.test.com")
 
-    func fetchUsers(_: String, page _: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+    var isFetchUserListSucceeded: Bool = true
+    var isEmptyUserListReturned: Bool = false
+    var isFetchFollowerListSucceeded: Bool = false
+    var isEmptyFollowerListSucceeded: Bool = false
+    let testUser: User = User(identifier: "test", login: "testLogin", avatarUrl: "www.test.com")
+
+    func fetchUsers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         if isFetchUserListSucceeded {
             if isEmptyUserListReturned {
                 completion(.success([]))
@@ -28,7 +29,7 @@ class MockFeedRepository: FeedServiceFetchable {
         }
     }
 
-    func fetchFollowers(_: String, page _: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
+    func fetchFollowers(_ username: String, page: Int, completion: @escaping (Result<[User], GFError>) -> Void) {
         if isFetchFollowerListSucceeded {
             if isEmptyFollowerListSucceeded {
                 completion(.success([]))

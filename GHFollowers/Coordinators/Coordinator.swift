@@ -8,6 +8,7 @@
 import UIKit
 
 class Coordinator: NSObject, UINavigationControllerDelegate {
+
     // MARK: - Properties
 
     var didFinish: ((Coordinator) -> Void)?
@@ -22,9 +23,8 @@ class Coordinator: NSObject, UINavigationControllerDelegate {
 
     // MARK: -
 
-    func navigationController(_: UINavigationController, willShow _: UIViewController, animated _: Bool) {}
-
-    func navigationController(_: UINavigationController, didShow _: UIViewController, animated _: Bool) {}
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {}
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {}
 
     // MARK: -
 
@@ -47,4 +47,5 @@ class Coordinator: NSObject, UINavigationControllerDelegate {
             childCoordinators.remove(at: index)
         }
     }
+
 }

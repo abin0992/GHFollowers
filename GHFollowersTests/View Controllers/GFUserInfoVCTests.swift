@@ -10,10 +10,11 @@ import SafariServices
 import XCTest
 
 class GFUserInfoVCTests: XCTestCase {
+
     // MARK: - Subject under test
 
     var systemUnderTest: GFUserInfoViewController!
-    let testUsername = "testUsername"
+    let testUsername: String = "testUsername"
 
     // MARK: - Setup View controller
 
@@ -56,11 +57,12 @@ class GFUserInfoVCTests: XCTestCase {
 
     func test_TableViewHasDataSource() {
         XCTAssertTrue(systemUnderTest.tableView.dataSource is GFUserInfoViewController)
+
     }
 
     func test_TableViewNumberOfRows() {
         systemUnderTest.loadViewIfNeeded()
-        let expectedNumberOfRows = 4
+        let expectedNumberOfRows: Int = 4
         XCTAssertEqual(expectedNumberOfRows, systemUnderTest.tableView.numberOfRows(inSection: 0))
     }
 

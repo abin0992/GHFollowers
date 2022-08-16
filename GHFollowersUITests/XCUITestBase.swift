@@ -8,7 +8,7 @@
 import XCTest
 
 class XCUITestBase: XCTestCase {
-    let app = XCUIApplication()
+    let app: XCUIApplication = XCUIApplication()
 
     let defaultLaunchArguments: [[String]] = {
         let launchArguments: [[String]] = [["-StartFromCleanState", "YES", "-Snapshot", "--uitesting"]]
@@ -30,4 +30,5 @@ class XCUITestBase: XCTestCase {
         app.terminate()
         super.tearDown()
     }
+
 }

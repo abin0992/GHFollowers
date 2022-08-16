@@ -7,9 +7,8 @@
 
 import UIKit
 
-// MARK: - Storyboardable
-
 protocol Storyboardable {
+
     // MARK: - Properties
 
     static var storyboardName: String { get }
@@ -22,9 +21,11 @@ protocol Storyboardable {
     // MARK: - Methods
 
     static func instantiate() -> Self
+
 }
 
 extension Storyboardable where Self: UIViewController {
+
     // MARK: - Properties
 
     static var storyboardName: String {
@@ -50,4 +51,5 @@ extension Storyboardable where Self: UIViewController {
 
         return viewController
     }
+
 }
