@@ -82,3 +82,4 @@ private extension GFSearchViewController {
         }
     }
 }
+  
