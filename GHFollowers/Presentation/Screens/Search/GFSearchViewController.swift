@@ -9,8 +9,8 @@ import UIKit
 
 class GFSearchViewController: UIViewController, Storyboardable, AlertPresentable {
 
-    @IBOutlet private weak var usernameTextField: UITextField!
-    @IBOutlet private weak var searchButton: GFButton!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var searchButton: GFButton!
 
     var searchUser: ((String) -> Void)?
 

@@ -12,19 +12,18 @@ import UIKit
 
 class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPresentable, Loadable {
 
-    @IBOutlet private weak var avatarImageView: GFAvatarImageView!
-    @IBOutlet private weak var usernameLabel: UILabel!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var locationLabel: UILabel!
-    @IBOutlet private weak var bioLabel: UILabel!
-    @IBOutlet private weak var repoCountLabel: UILabel!
-    @IBOutlet private weak var gistCountLabel: UILabel!
-    @IBOutlet private weak var followersCountLabel: UILabel!
-    @IBOutlet private weak var followingCountLabel: UILabel!
-    @IBOutlet private weak var yearLabel: UILabel!
-    @IBOutlet private weak var getFollowersButton: GFButton!
-    @IBOutlet private weak var doneButton: UIBarButtonItem!
-    @IBOutlet private weak var githubProfileButton: GFButton!
+    @IBOutlet weak var avatarImageView: GFAvatarImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var bioLabel: UILabel!
+    @IBOutlet weak var repoCountLabel: UILabel!
+    @IBOutlet weak var gistCountLabel: UILabel!
+    @IBOutlet weak var followersCountLabel: UILabel!
+    @IBOutlet weak var followingCountLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var getFollowersButton: GFButton!
+    @IBOutlet weak var githubProfileButton: GFButton!
 
     var username: String!
     lazy var viewModel: GFUserInfoViewModel = {
@@ -33,6 +32,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
     }()
     weak var delegate: UserInfoVCDelegate!
     private var subscriptions: Set<AnyCancellable> = []
+    var showFollowers: ((String) -> Void)?
 
     // MARK: - View life cycle
 
@@ -42,7 +42,6 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
         view.accessibilityIdentifier = AccessibilityIdentifier.userInfoView.rawValue
         getFollowersButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGetFollowersButton.rawValue
         githubProfileButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoGithubProfileButton.rawValue
-        doneButton.accessibilityIdentifier = AccessibilityIdentifier.userInfoDoneButton.rawValue
 
         configureTableView()
         bindViewModel()
@@ -84,12 +83,6 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
             .store(in: &subscriptions)
     }
 
-    // MARK: - Button Actions
-
-    @IBAction func dismissUserInfoViewController(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
-
     @IBAction func profileButtonAction(_ sender: Any) {
         guard let url = URL(string: viewModel.user.htmlUrl) else {
             presentGFAlertOnMainThread(title: Alert.invalidUrlTitle, message: Alert.invalidUrlMessage, buttonTitle: Alert.okButtonLabel, presentingView: self)
@@ -101,7 +94,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
 
     @IBAction func follwersButtonAction(_ sender: Any) {
         delegate.didRequestUsers(for: viewModel.user.login)
-        self.dismiss(animated: true)
+        self.showFollowers?(viewModel.user.login)
     }
 }
 

@@ -35,14 +35,20 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(searchViewController, animated: true)
     }
 
-    private func showSearchResults(_ username: String) {
+    private func showSearchResults(_ username: String, isModalPresentation: Bool = false) {
         let userListViewController: GFUserListViewController = GFUserListViewController.instantiate()
         userListViewController.viewModel.username = username
         userListViewController.showUserInfo = { [weak self] username in
             self?.showUserInfo(for: username, on: userListViewController)
         }
-        presentingViewController = userListViewController
-        navigationController.pushViewController(userListViewController, animated: true)
+        if isModalPresentation {
+            let presentingNav: BaseNavigationControllerWithCloseButton =
+            BaseNavigationControllerWithCloseButton(rootViewController: userListViewController)
+            presentingViewController?.present(presentingNav, animated: true)
+        } else {
+            presentingViewController = userListViewController
+            navigationController.pushViewController(userListViewController, animated: true)
+        }
     }
 
     private func showUserInfo(for username: String, on userList: GFUserListViewController) {
@@ -50,9 +56,12 @@ class AppCoordinator: Coordinator {
         userInfoViewController.username = username
         userInfoViewController.delegate = userList
         userInfoViewController.viewModel.username = username
-
-        navigationController = UINavigationController(rootViewController: userInfoViewController)
-        navigationController.delegate = self
-        presentingViewController?.present(navigationController, animated: true)
+        userInfoViewController.showFollowers = { [weak self] username in
+            self?.presentingViewController = userInfoViewController
+            self?.showSearchResults(username, isModalPresentation: true)
+        }
+        let presentingNav: BaseNavigationControllerWithCloseButton =
+        BaseNavigationControllerWithCloseButton(rootViewController: userInfoViewController)
+        presentingViewController?.present(presentingNav, animated: true)
     }
 }
