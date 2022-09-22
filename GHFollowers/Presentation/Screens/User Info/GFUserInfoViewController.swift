@@ -33,6 +33,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
     }()
     weak var delegate: UserInfoVCDelegate!
     private var subscriptions: Set<AnyCancellable> = []
+    var showFollowers: ((String) -> Void)?
 
     // MARK: - View life cycle
 
@@ -101,7 +102,7 @@ class GFUserInfoViewController: UITableViewController, Storyboardable, AlertPres
 
     @IBAction func follwersButtonAction(_ sender: Any) {
         delegate.didRequestUsers(for: viewModel.user.login)
-        self.dismiss(animated: true)
+        self.showFollowers?(viewModel.user.login)
     }
 }
 
