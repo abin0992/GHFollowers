@@ -33,7 +33,7 @@ class GFUserInfoViewModel {
             case .success(let user):
                 self?.user = user
             case .failure(let error):
-                self?.errorMessage = error.description
+                self?.errorMessage = error.localizedDescription
             }
         }
     }
