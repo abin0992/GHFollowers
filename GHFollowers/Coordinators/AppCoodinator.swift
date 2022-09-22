@@ -42,7 +42,8 @@ class AppCoordinator: Coordinator {
             self?.showUserInfo(for: username, on: userListViewController)
         }
         if isModalPresentation {
-            let presentingNav: UINavigationController = UINavigationController(rootViewController: userListViewController)
+            let presentingNav: BaseNavigationControllerWithCloseButton =
+            BaseNavigationControllerWithCloseButton(rootViewController: userListViewController)
             presentingViewController?.present(presentingNav, animated: true)
         } else {
             presentingViewController = userListViewController
@@ -59,7 +60,8 @@ class AppCoordinator: Coordinator {
             self?.presentingViewController = userInfoViewController
             self?.showSearchResults(username, isModalPresentation: true)
         }
-        let presentingNav: UINavigationController = UINavigationController(rootViewController: userInfoViewController)
+        let presentingNav: BaseNavigationControllerWithCloseButton =
+        BaseNavigationControllerWithCloseButton(rootViewController: userInfoViewController)
         presentingViewController?.present(presentingNav, animated: true)
     }
 }

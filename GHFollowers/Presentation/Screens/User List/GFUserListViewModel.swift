@@ -13,13 +13,12 @@ class GFUserListViewModel {
 
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var errorMessage: String = ""
-    @Published private(set) var noUsersState: Bool = true
+    @Published private(set) var noUsersState: Bool = false
     @Published var users: [User] = []
 
     var username: String!
     var page: Int = 1
     var hasMoreUsers: Bool = true
-    var isSearching: Bool = false
     var isFollwersList: Bool = false
     let feedRepository: FeedServiceFetchable!
 

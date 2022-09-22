@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1664889028DD03FA000E08CF /* BaseNavigationControllerWithDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1664888F28DD03FA000E08CF /* BaseNavigationControllerWithDoneButton.swift */; };
 		16E60D3828DCCB98009B6D1F /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E60D3528DCCB98009B6D1F /* Storyboardable.swift */; };
 		16E60D3928DCCB98009B6D1F /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E60D3628DCCB98009B6D1F /* AlertPresentable.swift */; };
 		16E60D3A28DCCB98009B6D1F /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E60D3728DCCB98009B6D1F /* Loadable.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1664888F28DD03FA000E08CF /* BaseNavigationControllerWithDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationControllerWithDoneButton.swift; sourceTree = "<group>"; };
 		16E60D3528DCCB98009B6D1F /* Storyboardable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		16E60D3628DCCB98009B6D1F /* AlertPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		16E60D3728DCCB98009B6D1F /* Loadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				86D4C2AE2599624F0025C133 /* GFAlertViewController.swift */,
+				1664888F28DD03FA000E08CF /* BaseNavigationControllerWithDoneButton.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1664889028DD03FA000E08CF /* BaseNavigationControllerWithDoneButton.swift in Sources */,
 				86E6E511259AB50300F1ADBA /* UIViewController+ClassName.swift in Sources */,
 				86D4C2B72599628F0025C133 /* GFAlertContainerView.swift in Sources */,
 				86DC95A8259B40590076B24F /* GFAvatarImageView.swift in Sources */,
