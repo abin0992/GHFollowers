@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DTNetworkMonitor
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Make Key and Visible
         window?.makeKeyAndVisible()
+
+        // Network logging
+        DTNetworkMonitorConfiguration.shared.startMonitoring()
 
         // Start Coordinator
         appCoordinator.start()
